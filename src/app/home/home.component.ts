@@ -8,14 +8,14 @@ import { DataService } from '../data.service';
 })
 export class HomeComponent implements OnInit {
 
-  users: Object;
+  tipoatendimento: Object;
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getUsers().subscribe(data => {
-      this.users = data
-      console.log(this.users)
+    this.data.getTipoAtendimentos().subscribe(content => {
+      this.tipoatendimento = content
+      console.log(this.tipoatendimento)
     })
   }
 

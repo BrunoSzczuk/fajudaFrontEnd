@@ -1,0 +1,21 @@
+<h1>Novo Tipo de Atendimento</h1>
+
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+
+  <h5 *ngIf="success">Form Válido</h5>
+  <h5 *ngIf="Error">Form Com problema</h5>
+
+  <label>
+    Descrição:
+    <input type="text" formControlName="name">
+
+  </label>
+
+  <label>
+    Status:
+    <mat-checkbox formControlName="status">Ativo</mat-checkbox>
+  </label>
+
+  <input type="submit" value="Cadastrar" class="cta">
+
+</form>

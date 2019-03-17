@@ -1,0 +1,12 @@
+<div>
+  <button (click)="goToAddPage()" >Criar novo Tipo de Atendimento
+  </button>
+</div>
+
+<ul *ngIf="tipoatendimento">
+  <li *ngFor="let tipo of tipoatendimento.content">
+    <p>{{ tipo.cdTipoatendimento}} - {{ tipo.dsTipoatendimento}}</p>
+    <button>Alterar</button>
+    <button>Excluir</button>
+  </li>
+</ul>

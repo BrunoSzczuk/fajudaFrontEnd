@@ -9,20 +9,29 @@ import { NavComponent } from './nav/nav.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-
+import { LocalComponent } from './local/local.component';
+import { TipoatendimentoComponent } from './tipoatendimento/tipoatendimento.component';
+import { TipoatendimentoaddComponent } from './tipoatendimentoadd/tipoatendimentoadd.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material';
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     AboutComponent,
     ContactComponent,
-    HomeComponent
+    HomeComponent,
+    LocalComponent,
+    TipoatendimentoComponent,
+    TipoatendimentoaddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
