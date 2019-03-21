@@ -1,3 +1,10 @@
-<p>
-  local works!
-</p>
+<div>
+  <button (click)="goToAddLocal()" >Criar novo local
+  </button>
+</div>
+
+<ul *ngIf="local">
+  <li *ngFor="let local of local.content">
+    <p>{{ local.dsLocal}} - {{ local.obsLocal}}</p>
+  </li>
+</ul>

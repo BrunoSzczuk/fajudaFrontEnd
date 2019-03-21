@@ -14,6 +14,7 @@ import { TipoatendimentoComponent } from './tipoatendimento/tipoatendimento.comp
 import { TipoatendimentoaddComponent } from './tipoatendimentoadd/tipoatendimentoadd.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
+import { LocaladdComponent } from './localadd/localadd.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { MaterialModule } from './material';
     HomeComponent,
     LocalComponent,
     TipoatendimentoComponent,
-    TipoatendimentoaddComponent
+    TipoatendimentoaddComponent,
+    LocaladdComponent
   ],
   imports: [
     BrowserModule,
