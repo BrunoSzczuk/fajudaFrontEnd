@@ -3,28 +3,49 @@ import { DataService } from '../data.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'autocomplete-filter-example',
-  templateUrl: 'autocomplete-filter-example.html',
-  styleUrls: ['autocomplete-filter-example.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+  title = 'materialApp';
+   myControl = new FormControl();
+   states;
+   local: Object;
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
+   constructor(private data: DataService, private router: Router) {
+    this.loadStates();
+    }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+    ngOnInit() {
+      
+    }
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
+   loadStates() {
+     
+    this.data.getLocais().subscribe(content => {
+      console.log(content);
+      (content as Array<Object>).forEach(r => 
+        {
+          this.states =  { value: r['cdLocal'], display: r['dsLocal'] };
+        })
+     });
+
+    //  (this.local as Array<Object>).forEach(element => {
+      
+    //  });
+
+
+      // this.states =  allStates.split(/, +/g).map( function (state) {
+      //    return {
+      //       value: state.toUpperCase(),
+      //       display: state
+      //    };
+      // });
+    }
+
 }

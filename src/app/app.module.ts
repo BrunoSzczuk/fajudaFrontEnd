@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,8 @@ import { TipoatendimentoaddComponent } from './tipoatendimentoadd/tipoatendiment
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
+import {MatAutocompleteModule,MatInputModule} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,10 @@ import { LocaladdComponent } from './localadd/localadd.component';
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
