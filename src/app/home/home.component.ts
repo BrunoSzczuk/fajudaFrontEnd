@@ -5,38 +5,21 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'autocomplete-filter-example',
+  templateUrl: 'autocomplete-filter-example.html',
+  styleUrls: ['autocomplete-filter-example.css'],
 })
-
 export class HomeComponent implements OnInit {
-
-  tipoatendimento: Object;
-  locais: Object;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
-  constructor(private data: DataService) { }
-
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-
-    this.data.getTipoAtendimentos().subscribe(content => {
-      this.tipoatendimento = content
-      console.log(this.tipoatendimento)
-    })
-
-    this.data.getLocais().subscribe(content => {
-      this.locais = content
-      console.log(this.locais)
-    })
-
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   private _filter(value: string): string[] {
@@ -44,5 +27,4 @@ export class HomeComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
 }
