@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,39 +13,26 @@ import {Router} from '@angular/router';
 
 export class HomeComponent implements OnInit {
   title = 'materialApp';
-   myControl = new FormControl();
-   states;
-   local: Object;
+  myControl = new FormControl();
+  states;
 
-   constructor(private data: DataService, private router: Router) {
+  constructor(private data: DataService, private router: Router) {
     this.loadStates();
-    }
+  }
 
-    ngOnInit() {
-      
-    }
+  ngOnInit() {
 
-   loadStates() {
-     
+  }
+
+  loadStates() {
+
     this.data.getLocais().subscribe(content => {
       console.log(content);
-      (content as Array<Object>).forEach(r => 
+      (content as Array<Object>).forEach(r =>
         {
-          this.states =  { value: r['cdLocal'], display: r['dsLocal'] };
+
+          console.log(r);
         })
-     });
-
-    //  (this.local as Array<Object>).forEach(element => {
-      
-    //  });
-
-
-      // this.states =  allStates.split(/, +/g).map( function (state) {
-      //    return {
-      //       value: state.toUpperCase(),
-      //       display: state
-      //    };
-      // });
-    }
-
+    })
+  }
 }
