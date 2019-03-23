@@ -1,2 +1,17 @@
 <h1>Solicitar</h1>
 
+<form class = "tp-form">
+  <mat-form-field class = "tp-full-width">
+     <input type = "text" 
+        placeholder = "Locais" 
+        aria-label = "Number" 
+        matInput 
+        [formControl] = "myControl" 
+        [matAutocomplete] = "auto">
+     <mat-autocomplete #auto = "matAutocomplete">
+        <mat-option *ngFor = "let state of states" [value] = "state.value">
+           {{state.display}}
+        </mat-option>
+     </mat-autocomplete>
+  </mat-form-field>
+</form>
