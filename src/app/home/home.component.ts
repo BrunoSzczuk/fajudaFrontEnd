@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   myControl = new FormControl();
   states;
 
+  local: Object;
   constructor(private data: DataService, private router: Router) {
     this.loadStates();
   }
@@ -27,12 +28,7 @@ export class HomeComponent implements OnInit {
   loadStates() {
 
     this.data.getLocais().subscribe(content => {
-      console.log(content);
-      (content as Array<Object>).forEach(r =>
-        {
-
-          console.log(r);
-        })
+      this.local = content
     })
   }
 }
