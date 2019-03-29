@@ -1,17 +1,38 @@
 <h1>Solicitar</h1>
 
 <form class = "tp-form">
-  <mat-form-field class = "tp-full-width">
-     <input type = "text" 
-        placeholder = "US State" 
-        aria-label = "Number" 
-        matInput 
-        [formControl] = "myControl" 
-        [matAutocomplete] = "auto">
-     <mat-autocomplete #auto = "matAutocomplete">
-        <mat-option *ngFor="let local of local.content">
-         <p>{{ local.dsLocal}}</p>
-        </mat-option>
-     </mat-autocomplete>
-  </mat-form-field>
+    <mat-form-field class = "tp-full-width">
+       <input type = "text" 
+          placeholder = "Locais" 
+          aria-label = "Number" 
+          matInput 
+          [formControl] = "fControlLocais" 
+          [matAutocomplete] = "auto">
+       <mat-autocomplete #auto = "matAutocomplete">
+          <mat-option *ngFor="let local of locais.content" [value]="local.dsLocal">
+           <p>{{ local.dsLocal}}</p>
+          </mat-option>
+       </mat-autocomplete>
+    </mat-form-field>   
 </form>
+
+<form class = "tp-form">
+    <mat-form-field class = "tp-full-width">
+       <input type = "text" 
+          placeholder = "Problemas" 
+          aria-label = "Number" 
+          matInput  
+          [formControl] = "fControlProblemas" 
+          [matAutocomplete] = "auto2">
+       <mat-autocomplete #auto2 = "matAutocomplete">
+          <mat-option *ngFor="let prob of problemas.content" [value]="prob.dsTipoatendimento">
+           <p>{{ prob.dsTipoatendimento}}</p>
+          </mat-option>
+       </mat-autocomplete>
+    </mat-form-field>   
+</form>
+
+  <mat-form-field class="tp-form">
+    <textarea matInput placeholder="Observação"></textarea>
+  </mat-form-field>
+

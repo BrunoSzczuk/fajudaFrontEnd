@@ -6,27 +6,28 @@ import {map, startWith} from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'autocomplete-filter-example',
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  myControl = new FormControl();
-  states;
+  
+  locais = new Object();
+  problemas = new Object();
+  fControlLocais = new FormControl();
+  fControlProblemas = new FormControl();
 
-  local: Object;
-  constructor(private data: DataService, private router: Router) {
-    this.loadStates();
-  }
+  constructor(private data: DataService, private router: Router) { }
 
-  ngOnInit() {
-   
-  }
-
-  loadStates() {
-
-    this.data.getLocais().subscribe(content => {
-      this.local = content
+  ngOnInit():void {
+    this.data.getLocais().subscribe(r => {
+      this.locais = r
+      console.log(this.locais)
+    })
+    
+    this.data.getTipoAtendimentos().subscribe(p => {
+      this.problemas = p
+      console.log(this.problemas)
     })
   }
 }
