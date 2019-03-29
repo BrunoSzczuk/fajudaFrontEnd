@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 var URL = "http://localhost:9090/";
+var FILTRO = "/filtro?";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class DataService {
 
   getLocais() {
     return this.http.get(URL + "locais");
+  }
+
+  getLocaisByDsLocal(dsLocal) {
+    return this.http.get(URL + "locais" + FILTRO + "dsLocal=" + dsLocal);
   }
 
   postLocal(descricao, status, obs) {
