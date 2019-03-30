@@ -1,9 +1,6 @@
 <h1>Novo Local</h1>
 
-<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-
-  <h5 *ngIf="success">Form Válido</h5>
-  <h5 *ngIf="Error">Form Com problema</h5>
+<form [formGroup]="messageForm">
 
   <label>
     Descrição:
@@ -22,7 +19,12 @@
     <mat-checkbox formControlName="statusLocal">Ativo</mat-checkbox>
   </label>
 
+  <button class="button1"
+    (click)="onSubmit()"
+    mat-button>Salvar</button>
 
-  <input type="submit" value="Cadastrar" class="cta">
-
+  <button class="button3" 
+    (click)="onCancelar()"
+    mat-button>Cancelar</button>
+  
 </form>

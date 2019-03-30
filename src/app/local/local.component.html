@@ -5,10 +5,13 @@
 </mat-selection-list>
 
 <button class="button1"
-  (click)="goToAddLocal()"
+  (click)="openDialog()"
   mat-button>Novo</button>
+
 <button class="button2" mat-button>Alterar</button>
 <button class="button3" mat-button>Excluir</button>
+
+<router-outlet></router-outlet>
 
 
 

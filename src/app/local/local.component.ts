@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import { DataService } from '../data.service';
+import { MatDialog } from '@angular/material';
+import { LocaladdComponent } from '../localadd/localadd.component';
 
 @Component({
   selector: 'app-local',
@@ -12,7 +14,13 @@ export class LocalComponent implements OnInit {
 
   locais = new Object();
 
-  constructor(private data: DataService, private router: Router) { }
+  constructor(private data: DataService, 
+    private router: Router, 
+    public dialog: MatDialog, 
+    private route: ActivatedRoute) 
+  {
+    
+  }
 
   ngOnInit() {
     this.data.getLocais().subscribe(content => {
@@ -20,8 +28,15 @@ export class LocalComponent implements OnInit {
     })
   }
 
-  private goToAddLocal() : void {
-      this.router.navigate(['/local/add']); 
+  private openDialog() :void {
+    const dialogRef = this.dialog.open(LocaladdComponent, {
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['../local'], { relativeTo: this.route });
+      this.ngOnInit();
+    });
   }
 
 }

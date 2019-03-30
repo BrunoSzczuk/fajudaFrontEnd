@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { TipoatendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
 
 @Component({
   selector: 'app-tipoatendimento',
@@ -12,7 +14,13 @@ export class TipoatendimentoComponent implements OnInit {
  
   tipoatendimento = new Object();
 
-  constructor(private data: DataService, private router: Router) { }
+  constructor(private data: DataService, 
+    private router: Router, 
+    public dialog: MatDialog, 
+    private route: ActivatedRoute) 
+  {
+    
+  }
 
   ngOnInit() {
     this.data.getTipoAtendimentos().subscribe(content => {
@@ -20,7 +28,18 @@ export class TipoatendimentoComponent implements OnInit {
     })
   }
 
-  private goToAddPage() {
-    this.router.navigate(['/tipoatendimento/add']); 
-}
+  private openDialog() :void {
+    const dialogRef = this.dialog.open(TipoatendimentoaddComponent, {
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['../tipoatendimento'], { relativeTo: this.route });
+      this.ngOnInit();
+    });
+  }
+  
+  private alterarTipoAtendimento():void {
+    
+  }
 }

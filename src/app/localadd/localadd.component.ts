@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-localadd',
@@ -10,10 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class LocaladdComponent implements OnInit {
   messageForm: FormGroup;
-  submitted = false;
-  success = false;
 
-  constructor(private formBuilder: FormBuilder, private data: DataService,) {
+  constructor(private formBuilder: FormBuilder, 
+    private data: DataService,
+    public dialogRef: MatDialogRef<LocaladdComponent>) {
+
     this.messageForm = this.formBuilder.group({
       nameLocal: ['', Validators.required],
       statusLocal: ['', Validators.required],
@@ -22,16 +24,18 @@ export class LocaladdComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    console.log(this.messageForm.controls.name);
-    console.log(this.messageForm.controls.status);
     this.data.postLocal(this.messageForm.controls.nameLocal.value, 
-      this.messageForm.controls.statusLocal.value,
-      this.messageForm.controls.observacaoLocal.value);
-    this.success = true;
+        this.messageForm.controls.statusLocal.value,
+        this.messageForm.controls.observacaoLocal.value);
+    this.dialogRef.close();
+  }
+
+  onCancelar(){
+    this.dialogRef.close();
   }
 
   ngOnInit() {
+
   }
 
 }
