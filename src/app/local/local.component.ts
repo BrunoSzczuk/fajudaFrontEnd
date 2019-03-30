@@ -10,18 +10,18 @@ import { DataService } from '../data.service';
 
 export class LocalComponent implements OnInit {
 
-  local: Object;
+  locais = new Object();
 
   constructor(private data: DataService, private router: Router) { }
 
   ngOnInit() {
     this.data.getLocais().subscribe(content => {
-      this.local = content
+      this.locais = content
     })
   }
 
-  goToAddLocal() {
-    this.router.navigate(['/local/add']); 
+  private goToAddLocal() : void {
+      this.router.navigate(['/local/add']); 
   }
 
 }

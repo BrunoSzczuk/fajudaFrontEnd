@@ -1,10 +1,15 @@
-<div>
-  <button (click)="goToAddLocal()" >Criar novo local
-  </button>
-</div>
+<mat-selection-list>
+  <mat-list-option *ngFor="let local of locais.content" [value]="local.dsLocal">
+    <p>{{ local.dsLocal}}</p>
+  </mat-list-option>
+</mat-selection-list>
 
-<ul *ngIf="local">
-  <li *ngFor="let local of local.content">
-    <p>{{ local.dsLocal}} - {{ local.obsLocal}}</p>
-  </li>
-</ul>
+<button class="button1"
+  (click)="goToAddLocal()"
+  mat-button>Novo</button>
+<button class="button2" mat-button>Alterar</button>
+<button class="button3" mat-button>Excluir</button>
+
+
+
+ 

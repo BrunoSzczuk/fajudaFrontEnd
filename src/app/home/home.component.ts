@@ -30,4 +30,8 @@ export class HomeComponent implements OnInit {
       console.log(this.problemas)
     })
   }
+
+  private clickSaveAtendimento():void {
+    
+  }
 }

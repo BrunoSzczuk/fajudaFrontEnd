@@ -1,23 +1,20 @@
-ul {
-    list-style-type: none;
-    margin: 0;padding: 0;
+.button1 {
+    background-color: #4CAF50;
+    color: white;
+    width: 75px;
+    border-radius: 25%;
+}
 
-    li {
-        background: rgb(238, 238, 238);
-        padding: 2em;
-        border-radius: 4px;
-        margin-bottom: 7px;
-        display: grid;
-        grid-template-columns: 60px auto;
+.button2 {
+    background-color: #008CBA;
+    color: white;
+    width: 75px;
+    border-radius: 25%;
+}
 
-        p {
-            font-weight: bold;
-            margin-left: 20px;
-        }
-
-        img {
-            border-radius: 50%;
-            width: 100%;
-        }
-    }
+.button3 {
+    background-color: #f44336;
+    color: white;
+    width: 75px;
+    border-radius: 25%;
 }
