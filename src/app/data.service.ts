@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-var URL = "http://192.168.137.86:9090/";
+var URL = "http://localhost:9090/";
 
 var FILTRO = "/filtro?";
 

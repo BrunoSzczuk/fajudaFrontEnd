@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class TipoatendimentoComponent implements OnInit {
 
  
-  tipoatendimento: Object;
+  tipoatendimento = new Object();
 
   constructor(private data: DataService, private router: Router) { }
 
@@ -20,7 +20,7 @@ export class TipoatendimentoComponent implements OnInit {
     })
   }
 
-  goToAddPage() {
+  private goToAddPage() {
     this.router.navigate(['/tipoatendimento/add']); 
 }
 }

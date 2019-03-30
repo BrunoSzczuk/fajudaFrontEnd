@@ -1,12 +1,17 @@
-<div>
-  <button (click)="goToAddPage()" >Criar novo Tipo de Atendimento
-  </button>
-</div>
+<mat-selection-list>
+  <mat-list-option *ngFor="let tipo of tipoatendimento.content" [value]="tipo.dsTipoatendimento">
+    <p>{{ tipo.dsTipoatendimento}}</p>
+  </mat-list-option>
+</mat-selection-list>
 
-<ul *ngIf="tipoatendimento">
-  <li *ngFor="let tipo of tipoatendimento.content">
-    <p>{{ tipo.cdTipoatendimento}} - {{ tipo.dsTipoatendimento}}</p>
-    <button>Alterar</button>
-    <button>Excluir</button>
-  </li>
-</ul>
+<button class="button1"
+  (click)="goToAddPage()"
+  mat-button>Novo</button>
+<button class="button2" 
+  mat-button>Alterar</button>
+<button class="button3"
+   mat-button>Excluir</button>
+
+
+
+ 
