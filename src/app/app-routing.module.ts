@@ -5,6 +5,7 @@ import { LocalComponent } from './local/local.component';
 import { TipoatendimentoComponent } from "./tipoatendimento/tipoatendimento.component";
 import { TipoatendimentoaddComponent } from "./tipoatendimentoadd/tipoatendimentoadd.component";
 import { LocaladdComponent } from './localadd/localadd.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'tipoatendimento', component: TipoatendimentoComponent },
   { path: 'tipoatendimento/add', component: TipoatendimentoaddComponent },
   { path: 'local/add', component: LocaladdComponent },
+  { path: 'login', component: LoginComponent}
 
 ];
 

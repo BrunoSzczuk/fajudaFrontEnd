@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
 import {MatAutocompleteModule,MatInputModule} from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './login/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import {MatAutocompleteModule,MatInputModule} from '@angular/material';
     LocalComponent,
     TipoatendimentoComponent,
     TipoatendimentoaddComponent,
-    LocaladdComponent
+    LocaladdComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import {MatAutocompleteModule,MatInputModule} from '@angular/material';
     MatAutocompleteModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
