@@ -6,13 +6,14 @@ import { TipoatendimentoComponent } from "./tipoatendimento/tipoatendimento.comp
 import { TipoatendimentoaddComponent } from "./tipoatendimentoadd/tipoatendimentoadd.component";
 import { LocaladdComponent } from './localadd/localadd.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'local', component: LocalComponent },
-  { path: 'tipoatendimento', component: TipoatendimentoComponent },
-  { path: 'tipoatendimento/add', component: TipoatendimentoaddComponent },
-  { path: 'local/add', component: LocaladdComponent },
+  { path: '', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'local', component: LocalComponent, canActivate:[AuthGuard] },
+  { path: 'tipoatendimento', component: TipoatendimentoComponent, canActivate:[AuthGuard] },
+  { path: 'tipoatendimento/add', component: TipoatendimentoaddComponent, canActivate:[AuthGuard] },
+  { path: 'local/add', component: LocaladdComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent}
 
 ];

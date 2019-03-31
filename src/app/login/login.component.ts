@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
+import { Usuario } from './usuario';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -6,14 +10,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  private usuario : Usuario = new Usuario();
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private authService : AuthService) { 
+                this.createForm();
+              }
 
   ngOnInit() {
   }
 
   doLogin(){
-    console.log('Login realizado');
+    this.authService.doLogin(this.loginForm.value)
   }
+
+  private createForm() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]//,
+      //remember: true
+    });
+  }  
 
 }

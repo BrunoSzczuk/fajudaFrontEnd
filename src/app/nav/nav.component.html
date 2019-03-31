@@ -1,7 +1,7 @@
 <header>
   <div class="container">
-    <a routerLink="/" class="logo">{{ appTitle }}</a>
-    <nav>
+    <a routerLink="/" class="logo"><img src="../../assets/img/Fajudatext.png" height="20" width="120"> </a>
+    <nav *ngIf="showMenu">
       <ul>
         <li><a routerLink="/">Home</a></li>
         <li><a routerLink="/local">Local</a></li>
