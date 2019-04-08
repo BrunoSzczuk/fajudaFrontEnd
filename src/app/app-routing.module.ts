@@ -9,11 +9,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate:[AuthGuard] },
-  { path: 'local', component: LocalComponent, canActivate:[AuthGuard] },
-  { path: 'tipoatendimento', component: TipoatendimentoComponent, canActivate:[AuthGuard] },
-  { path: 'tipoatendimento/add', component: TipoatendimentoaddComponent, canActivate:[AuthGuard] },
-  { path: 'local/add', component: LocaladdComponent, canActivate:[AuthGuard] },
+  { path: '', component: HomeComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'local', component: LocalComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'tipoatendimento', component: TipoatendimentoComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'tipoatendimento/add', component: TipoatendimentoaddComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'local/add', component: LocaladdComponent, /*canActivate:[AuthGuard]*/ },
   { path: 'login', component: LoginComponent}
 
 ];

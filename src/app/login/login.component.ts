@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Usuario } from './usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,9 +12,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  error: string;
   private usuario : Usuario = new Usuario();
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
               private authService : AuthService) { 
                 this.createForm();
               }
@@ -23,6 +26,13 @@ export class LoginComponent implements OnInit {
 
   doLogin(){
     this.authService.doLogin(this.loginForm.value)
+    .subscribe(
+      credentials => {
+        this.router.navigate(['/'], { replaceUrl: true });
+      }, error => {
+        this.error = error.errors[0].detail;
+      }
+    );
   }
 
   private createForm() {
