@@ -2,17 +2,17 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Usuario } from './usuario';
 import { Observable, Observer, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 var URL = "http://localhost:9090/";
 
-export interface LoginContext{
-  username : string;
-  password : string;   
+export interface LoginContext {
+  username: string;
+  password: string;
 }
 
 export interface Credentials {
-  username : string;
+  username: string;
   token: string;
 }
 
@@ -28,15 +28,17 @@ export class AuthService {
   showMenuEmitter = new EventEmitter<boolean>();
 
   constructor(private router: Router,
-              private http: HttpClient) { 
-                const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
+    private http: HttpClient) {
+    const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
-    }                  
-                
-              }
+    }
 
-  doLogin(context : LoginContext): Observable <Credentials>{
+  }
+
+  
+
+  doLogin(context: LoginContext): Observable<Credentials> {
 
     /*
     console.log(context.username);
@@ -54,13 +56,19 @@ export class AuthService {
     }*/
 
     return Observable.create((observer: Observer<any>) => {
+      const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        observe: 'response' as 'response'
+      };
+      return this.http.post(URL + 'login',
+        { username: context.username, senha: context.password },  httpOptions)
+        .subscribe((response: HttpResponse<any>) => {
+          let token = response.headers.get('authorization')
+          if (response && token) {
 
-      return this.http.post(URL + 'auth',
-        {username: context.username, password: context.password}).subscribe((response: any) => {
-          if(response && response.access_token){
             const data = {
               username: context.username,
-              token: response.access_token
+              token: token
             };
             //será que precisa???
             this.usuarioAuth = true;
@@ -70,10 +78,10 @@ export class AuthService {
             this.setCredentials(data);
             observer.next(data);
             observer.complete();
-          }else{
+          } else {
             //será que precisa???
             this.usuarioAuth = false;
-            this.showMenuEmitter.emit(false); 
+            this.showMenuEmitter.emit(false);
 
             //
             observer.error(response);
@@ -82,7 +90,7 @@ export class AuthService {
     });
   }
 
-  usuarioAutenticado(){
+  usuarioAutenticado() {
     return this.usuarioAuth;
   }
 

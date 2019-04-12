@@ -13,26 +13,26 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
-  private usuario : Usuario = new Usuario();
+  private usuario: Usuario = new Usuario();
 
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private authService : AuthService) { 
-                this.createForm();
-              }
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {
+    this.createForm();
+  }
 
   ngOnInit() {
   }
 
-  doLogin(){
+  doLogin() {
     this.authService.doLogin(this.loginForm.value)
-    .subscribe(
-      credentials => {
-        this.router.navigate(['/'], { replaceUrl: true });
-      }, error => {
-        this.error = error.errors[0].detail;
-      }
-    );
+      .subscribe(
+        credentials => {
+          this.router.navigate(['/'], { replaceUrl: true });
+        }, error => {
+          this.error = error.errors[0].detail;
+        }
+      );
   }
 
   private createForm() {
@@ -41,6 +41,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]//,
       //remember: true
     });
-  }  
+  }
 
 }

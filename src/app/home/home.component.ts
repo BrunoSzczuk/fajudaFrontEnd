@@ -22,12 +22,10 @@ export class HomeComponent implements OnInit {
   ngOnInit():void {
     this.data.getLocais().subscribe(r => {
       this.locais = r
-      console.log(this.locais)
     })
     
     this.data.getTipoAtendimentos().subscribe(p => {
       this.problemas = p
-      console.log(this.problemas)
     })
   }
 
