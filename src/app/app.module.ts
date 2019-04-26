@@ -19,6 +19,7 @@ import {MatAutocompleteModule,MatInputModule} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AuthGuard } from './guards/auth.guard';
     FormsModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
