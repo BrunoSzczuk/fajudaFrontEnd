@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-var URL = "http://localhost:9090/";
+var URL = "http://192.168.137.1:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -26,6 +26,10 @@ export class DataService {
 
   getLocais() {
     return this.http.get(URL + "locais");
+  }
+
+  deleteLocal(id){
+    this.http.delete(URL+"delete/"+id);
   }
 
   getLocaisByDsLocal(dsLocal) {

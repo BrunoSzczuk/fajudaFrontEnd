@@ -1,5 +1,5 @@
-<mat-selection-list>
-  <mat-list-option *ngFor="let local of locais.content" [value]="local.dsLocal">
+<mat-selection-list #shoes>
+  <mat-list-option *ngFor="let local of locais.content" [value]="local.cdLocal">
     <p>{{ local.dsLocal}}</p>
   </mat-list-option>
 </mat-selection-list>
@@ -9,7 +9,10 @@
   mat-button>Novo</button>
 
 <button class="button2" mat-button>Alterar</button>
-<button class="button3" mat-button>Excluir</button>
+
+<button class="button3"
+  (click)="delete(shoes.selectedOptions.selected)"
+  mat-button>Excluir</button>
 
 <router-outlet></router-outlet>
 

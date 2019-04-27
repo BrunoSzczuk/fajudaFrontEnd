@@ -4,7 +4,7 @@ import { Observable, Observer, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-var URL = "http://localhost:9090/";
+var URL = "http://192.168.137.1:9090/";
 
 export interface LoginContext {
   username: string;

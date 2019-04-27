@@ -28,6 +28,9 @@ export class LocalComponent implements OnInit {
     })
   }
 
+  delete(id) {
+    this.data.deleteLocal(id);
+  }
   private openDialog() :void {
     const dialogRef = this.dialog.open(LocaladdComponent, {
       width: '350px'
