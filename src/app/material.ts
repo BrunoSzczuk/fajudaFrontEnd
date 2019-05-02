@@ -1,4 +1,4 @@
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatCardModule } from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { NgModule } from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatAutocompleteModule, 
         MatFormFieldModule, 
         MatListModule,
+        MatCardModule,
         MatDialogModule,
     ],
     exports: [MatButtonModule, 
@@ -18,6 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatAutocompleteModule, 
         MatFormFieldModule, 
         MatListModule,
+        MatCardModule,
         MatDialogModule],
 })
 export class MaterialModule{};

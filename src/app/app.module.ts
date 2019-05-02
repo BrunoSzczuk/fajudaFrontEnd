@@ -15,11 +15,11 @@ import { TipoatendimentoaddComponent } from './tipoatendimentoadd/tipoatendiment
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
-import {MatAutocompleteModule,MatInputModule} from '@angular/material';
+import { MatAutocompleteModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
-
+import { CdkTableModule } from '@angular/cdk/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,16 +35,21 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   imports: [
     BrowserModule,
+    CdkTableModule,
+    MatTableModule,
     AppRoutingModule,
+    MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
     MaterialModule,
     FormsModule,
+    MatPaginatorModule,
+    MatSortModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatInputModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

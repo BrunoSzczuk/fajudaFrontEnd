@@ -3,8 +3,7 @@ import { Usuario } from './usuario';
 import { Observable, Observer, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-
-var URL = "http://localhost:9090/";
+import { URL } from '../data.service';
 
 export interface LoginContext {
   username: string;
@@ -36,7 +35,7 @@ export class AuthService {
 
   }
 
-  
+
 
   doLogin(context: LoginContext): Observable<Credentials> {
 
@@ -61,7 +60,7 @@ export class AuthService {
         observe: 'response' as 'response'
       };
       return this.http.post(URL + 'login',
-        { username: context.username, senha: context.password },  httpOptions)
+        { username: context.username, senha: context.password }, httpOptions)
         .subscribe((response: HttpResponse<any>) => {
           let token = response.headers.get('authorization')
           if (response && token) {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { LocaladdComponent } from '../localadd/localadd.component';
+import { Local } from 'src/models/local';
+import { Response } from 'src/models/response';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-local',
@@ -12,25 +15,51 @@ import { LocaladdComponent } from '../localadd/localadd.component';
 
 export class LocalComponent implements OnInit {
 
-  locais = new Object();
+  private locais: Local[];
+  dataSource;
+  displayedColumns: String[] = ['cdLocal', 'dsLocal', 'obsLocal', 'action'];
+  selection = new SelectionModel<Local>(true, []);
+  constructor(private data: DataService,
+    private router: Router,
+    public dialog: MatDialog,
+    private route: ActivatedRoute) {
 
-  constructor(private data: DataService, 
-    private router: Router, 
-    public dialog: MatDialog, 
-    private route: ActivatedRoute) 
-  {
-    
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Local): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdLocal + 1}`;
+  }
   ngOnInit() {
-    this.data.getLocais().subscribe(content => {
-      this.locais = content
+    this.data.getLocais().subscribe(response => {
+      this.locais = response.content
+      this.dataSource = new MatTableDataSource(this.locais);
+      console.log("datatable: " + this.dataSource)
     })
+
   }
 
-  private openDialog() :void {
+  private openDialog(local : Local): void {
+    console.log(local)
     const dialogRef = this.dialog.open(LocaladdComponent, {
-      width: '350px'
+      width: '550px',
+      data : local
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -38,5 +67,8 @@ export class LocalComponent implements OnInit {
       this.ngOnInit();
     });
   }
-
+  
+  deleteLocal(id){
+    this.data.deleteLocal(id);
+  }
 }

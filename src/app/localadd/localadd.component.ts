@@ -1,36 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Local } from 'src/models/local';
+
 
 @Component({
   selector: 'app-localadd',
   templateUrl: './localadd.component.html',
   styleUrls: ['./localadd.component.scss']
 })
-
 export class LocaladdComponent implements OnInit {
   messageForm: FormGroup;
+  local: Local
+  constructor(private formBuilder: FormBuilder,
 
-  constructor(private formBuilder: FormBuilder, 
-    private data: DataService,
+    private dataService: DataService,
+    @Inject(MAT_DIALOG_DATA) public dados: any,
     public dialogRef: MatDialogRef<LocaladdComponent>) {
-
-    this.messageForm = this.formBuilder.group({
-      nameLocal: ['', Validators.required],
-      statusLocal: ['', Validators.required],
-      observacaoLocal: ['', Validators.required]
-    })
+    if (dados != "")
+      this.local = dados;
+    else
+      this.local = new Local();
   }
 
   onSubmit() {
-    this.data.postLocal(this.messageForm.controls.nameLocal.value, 
-        this.messageForm.controls.statusLocal.value,
-        this.messageForm.controls.observacaoLocal.value);
+    this.dataService.postLocal(this.local);
     this.dialogRef.close();
   }
 
-  onCancelar(){
+  onCancelar() {
     this.dialogRef.close();
   }
 
