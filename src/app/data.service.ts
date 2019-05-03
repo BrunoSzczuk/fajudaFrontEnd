@@ -35,7 +35,6 @@ export class DataService {
   }
 
   postLocal(local: Local) {
-    console.log('local do post: '+ local )
     this.http.post(URL + "locais", local).subscribe(status => console.log(JSON.stringify(status)));
   }
 
