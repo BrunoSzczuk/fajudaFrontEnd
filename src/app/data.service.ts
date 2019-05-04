@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
 
-export var URL = "http://localhost:9090/";
+export var URL = "http://192.168.137.242:9090/";
 
 var FILTRO = "/filtro?";
 
