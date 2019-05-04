@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import { TipoatendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
+import { TipoAtendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -44,31 +44,31 @@ export class TipoAtendimentoComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdTipoatendimento + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdTipoAtendimento + 1}`;
   }
   ngOnInit() {
-    this.data.getLocais().subscribe(response => {
-      this.locais = response.content
-      this.dataSource = new MatTableDataSource(this.locais);
+   this.data.getTipoAtendimentos().subscribe(response => {
+      this.tipoatendimento = response.content
+      this.dataSource = new MatTableDataSource(this.tipoatendimento);
       console.log("datatable: " + this.dataSource)
     })
 
   }
 
-  private openDialog(local : Local): void {
-    console.log(local)
-    const dialogRef = this.dialog.open(LocaladdComponent, {
+  private openDialog(tipoatendimento : TipoAtendimento): void {
+    console.log(tipoatendimento)
+    const dialogRef = this.dialog.open(TipoAtendimentoaddComponent, {
       width: '550px',
-      data : local
+      data : tipoatendimento
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['../local'], { relativeTo: this.route });
+      this.router.navigate(['../tipoatendimento'], { relativeTo: this.route });
       this.ngOnInit();
     });
   }
   
-  deleteLocal(id){
-    this.data.deleteLocal(id);
+  deleteTipoAtendimento(id){
+    this.data.deleteTipoAtendimento(id);
   }
 }
