@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
+import { Observable } from 'rxjs';
 
 export var URL = "http://localhost:9090/";
 
@@ -34,16 +35,16 @@ export class DataService {
     return this.http.get<Response>(URL + "locais" + FILTRO + "dsLocal=" + dsLocal);
   }
 
-  postLocal(local: Local) {
-    this.http.post(URL + "locais", local).subscribe(status => console.log(JSON.stringify(status)));
+  postLocal(local: Local): Observable<Object> {
+    return this.http.post(URL + "locais", local);
   }
 
-  postAtendimento(){
+  postAtendimento() {
 
   }
 
-  deleteLocal(id){
+  deleteLocal(id) {
     console.log('id ' + id)
-    this.http.delete(URL + "locais/"+id).subscribe(status => console.log(JSON.stringify(status)));
+    this.http.delete(URL + "locais/" + id).subscribe(status => console.log(JSON.stringify(status)));
   }
 }

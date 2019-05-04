@@ -50,7 +50,6 @@ export class LocalComponent implements OnInit {
     this.data.getLocais().subscribe(response => {
       this.locais = response.content
       this.dataSource = new MatTableDataSource(this.locais);
-      console.log("datatable: " + this.dataSource)
     })
 
   }
