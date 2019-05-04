@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Local } from 'src/models/local';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -25,8 +26,12 @@ export class LocaladdComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataService.postLocal(this.local);
-    this.dialogRef.close();
+    this.dataService.postLocal(this.local).pipe(finalize(() => {
+      this.dialogRef.close();
+    })).subscribe(error => {
+      this.dialogRef.close();
+    });
+
   }
 
   onCancelar() {
