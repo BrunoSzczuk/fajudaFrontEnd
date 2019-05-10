@@ -39,12 +39,15 @@ export class DataService {
     return this.http.post(URL + "locais", local);
   }
 
+  updateLocal(local: Local): Observable<Object> {
+    return this.http.put(URL + "locais/" + local.cdLocal, local);
+  }
+
   postAtendimento() {
 
   }
 
-  deleteLocal(id) {
-    console.log('id ' + id)
-    this.http.delete(URL + "locais/" + id).subscribe(status => console.log(JSON.stringify(status)));
+  deleteLocal(id): Observable<Object> {
+    return this.http.delete(URL + "locais/" + id);
   }
 }

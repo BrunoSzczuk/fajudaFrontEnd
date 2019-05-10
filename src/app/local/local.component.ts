@@ -6,6 +6,7 @@ import { LocaladdComponent } from '../localadd/localadd.component';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-local',
@@ -68,6 +69,10 @@ export class LocalComponent implements OnInit {
   }
   
   deleteLocal(id){
-    this.data.deleteLocal(id);
+    this.data.deleteLocal(id).pipe(finalize(() => {
+      this.ngOnInit();
+    })).subscribe(error => {
+      this.ngOnInit();
+    });
   }
 }

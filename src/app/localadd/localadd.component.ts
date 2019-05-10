@@ -26,12 +26,19 @@ export class LocaladdComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataService.postLocal(this.local).pipe(finalize(() => {
-      this.dialogRef.close();
-    })).subscribe(error => {
-      this.dialogRef.close();
-    });
-
+    if (this.local.cdLocal > 0) {
+      this.dataService.updateLocal(this.local).pipe(finalize(() => {
+        this.dialogRef.close();
+      })).subscribe(error => {
+        this.dialogRef.close();
+      });
+    } else {
+      this.dataService.postLocal(this.local).pipe(finalize(() => {
+        this.dialogRef.close();
+      })).subscribe(error => {
+        this.dialogRef.close();
+      });
+    }
   }
 
   onCancelar() {
