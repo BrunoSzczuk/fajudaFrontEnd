@@ -17,7 +17,7 @@ export class TipoAtendimentoComponent implements OnInit {
 
   private tipoatendimento: TipoAtendimento[];
   dataSource;
-  displayedColumns: String[] = ['cdTipoAtendimento', 'dsTipoAtendimento', 'action'];
+  displayedColumns: String[] = ['cdTipoatendimento', 'dsTipoatendimento', 'action'];
   selection = new SelectionModel<TipoAtendimento>(true, []);
   constructor(private data: DataService,
     private router: Router,
@@ -44,7 +44,7 @@ export class TipoAtendimentoComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdTipoAtendimento + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdTipoatendimento + 1}`;
   }
   ngOnInit() {
    this.data.getTipoAtendimentos().subscribe(response => {

@@ -5,7 +5,7 @@ import { Response } from 'src/models/response';
 import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 
-export var URL = "http://192.168.137.242:9090/";
+export var URL = "http://localhost:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -22,7 +22,11 @@ export class DataService {
   }
 
   postTipoAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
-    return this.http.post(URL + "tipoatendimento", tipoatendimento);
+
+    return this.http.post(URL + "tipoAtendimentos", tipoatendimento);
+  }
+  updateAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
+    return this.http.put(URL + "tipoAtendimentos/" + tipoatendimento.cdTipoatendimento, tipoatendimento);
   }
 
   getLocais() {
@@ -49,7 +53,7 @@ export class DataService {
     return this.http.delete(URL + "locais/" + id);
   }
 
-  deleteTipoAtendimento(id){
+  deleteTipoAtendimento(id) {
     console.log('id ' + id)
     this.http.delete(URL + "tipoatendimento/" + id).subscribe(status => console.log(JSON.stringify(status)));
   }

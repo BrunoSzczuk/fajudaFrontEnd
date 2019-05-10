@@ -5,15 +5,15 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Código  -->
-  <ng-container matColumnDef="cdTipoAtendimento">
+  <ng-container matColumnDef="cdTipoatendimento">
     <th mat-header-cell *matHeaderCellDef> Código </th>
-    <td mat-cell *matCellDef="let element"> {{element.cdTipoAtendimento}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.cdTipoatendimento}} </td>
   </ng-container>
 
   <!-- Descrição -->
-  <ng-container matColumnDef="dsTipoAtendimento">
+  <ng-container matColumnDef="dsTipoatendimento">
     <th mat-header-cell *matHeaderCellDef> Descrição </th>
-    <td mat-cell *matCellDef="let element"> {{element.dsTipoAtendimento}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.dsTipoatendimento}} </td>
   </ng-container>
 
   <ng-container matColumnDef="action">
@@ -23,7 +23,7 @@
         (click)="openDialog(element)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
-      <button mat-icon-button color="accent" (click)="deleteTipoAtendimento(element.cdTipoAtendimento)">
+      <button mat-icon-button color="accent" (click)="deleteTipoatendimento(element.cdTipoatendimento)">
         <mat-icon aria-label="Delete">delete</mat-icon>
       </button>
     </td>

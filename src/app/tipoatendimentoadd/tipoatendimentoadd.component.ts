@@ -26,12 +26,19 @@ export class TipoAtendimentoaddComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataService.postTipoAtendimento(this.tipoatendimento).pipe(finalize(() => {
-      this.dialogRef.close();
-    })).subscribe(error => {
-      this.dialogRef.close();
-    });
-
+    if (this.tipoatendimento.cdTipoatendimento > 0) {
+      this.dataService.updateAtendimento(this.tipoatendimento).pipe(finalize(() => {
+        this.dialogRef.close();
+      })).subscribe(error => {
+        this.dialogRef.close();
+      });
+    } else {
+      this.dataService.postTipoAtendimento(this.tipoatendimento).pipe(finalize(() => {
+        this.dialogRef.close();
+      })).subscribe(error => {
+        this.dialogRef.close();
+      });
+    }
   }
 
   onCancelar() {
