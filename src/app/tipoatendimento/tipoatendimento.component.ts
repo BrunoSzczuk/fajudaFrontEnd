@@ -1,36 +1,65 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import {Router, ActivatedRoute} from '@angular/router';
-import { MatDialog } from '@angular/material';
-import { TipoatendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { TipoAtendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
+import { TipoAtendimento } from 'src/models/tipoatendimento';
+import { Response } from 'src/models/response';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-tipoatendimento',
   templateUrl: './tipoatendimento.component.html',
   styleUrls: ['./tipoatendimento.component.scss']
 })
-export class TipoatendimentoComponent implements OnInit {
 
- 
-  tipoatendimento = new Object();
+export class TipoAtendimentoComponent implements OnInit {
 
-  constructor(private data: DataService, 
-    private router: Router, 
-    public dialog: MatDialog, 
-    private route: ActivatedRoute) 
-  {
-    
+  private tipoatendimento: TipoAtendimento[];
+  dataSource;
+  displayedColumns: String[] = ['cdTipoAtendimento', 'dsTipoAtendimento', 'action'];
+  selection = new SelectionModel<TipoAtendimento>(true, []);
+  constructor(private data: DataService,
+    private router: Router,
+    public dialog: MatDialog,
+    private route: ActivatedRoute) {
+
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: TipoAtendimento): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdTipoAtendimento + 1}`;
+  }
   ngOnInit() {
-    this.data.getTipoAtendimentos().subscribe(content => {
-      this.tipoatendimento = content
+   this.data.getTipoAtendimentos().subscribe(response => {
+      this.tipoatendimento = response.content
+      this.dataSource = new MatTableDataSource(this.tipoatendimento);
+      console.log("datatable: " + this.dataSource)
     })
+
   }
 
-  private openDialog() :void {
-    const dialogRef = this.dialog.open(TipoatendimentoaddComponent, {
-      width: '350px'
+  private openDialog(tipoatendimento : TipoAtendimento): void {
+    console.log(tipoatendimento)
+    const dialogRef = this.dialog.open(TipoAtendimentoaddComponent, {
+      width: '550px',
+      data : tipoatendimento
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -39,7 +68,7 @@ export class TipoatendimentoComponent implements OnInit {
     });
   }
   
-  private alterarTipoAtendimento():void {
-    
+  deleteTipoAtendimento(id){
+    this.data.deleteTipoAtendimento(id);
   }
 }

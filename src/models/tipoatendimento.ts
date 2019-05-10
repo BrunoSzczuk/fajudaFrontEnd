@@ -1,6 +1,6 @@
 export class TipoAtendimento{
-    cdTipoatendimento: number;
-    dsTipoatendimento: string;
+    cdTipoAtendimento: number;
+    dsTipoAtendimento: string;
 
     stAtivo: boolean;
 }

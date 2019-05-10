@@ -10,8 +10,8 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { LocalComponent } from './local/local.component';
-import { TipoatendimentoComponent } from './tipoatendimento/tipoatendimento.component';
-import { TipoatendimentoaddComponent } from './tipoatendimentoadd/tipoatendimentoadd.component';
+import { TipoAtendimentoComponent } from './tipoatendimento/tipoatendimento.component';
+import { TipoAtendimentoaddComponent } from './tipoatendimentoadd/tipoatendimentoadd.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
@@ -28,8 +28,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     ContactComponent,
     HomeComponent,
     LocalComponent,
-    TipoatendimentoComponent,
-    TipoatendimentoaddComponent,
+    TipoAtendimentoComponent,
+    TipoAtendimentoaddComponent,
     LocaladdComponent,
     LoginComponent
   ],

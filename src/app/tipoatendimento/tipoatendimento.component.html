@@ -1,20 +1,38 @@
-<mat-selection-list>
-  <mat-list-option *ngFor="let tipo of tipoatendimento.content" [value]="tipo.dsTipoatendimento">
-    <p>{{ tipo.dsTipoatendimento}}</p>
-  </mat-list-option>
-</mat-selection-list>
 
-<button class="button1"
-  (click)="openDialog()"
-  mat-button>Novo</button>
+<h1>Tipo Atendimento</h1>
+<button class="button1" (click)="openDialog()" mat-button>Novo</button>
 
-<button class="button2" 
-(click)="alterarTipoAtendimento()"
-  mat-button>Alterar</button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-<button class="button3"
-   mat-button>Excluir</button>
+  <!-- Código  -->
+  <ng-container matColumnDef="cdTipoAtendimento">
+    <th mat-header-cell *matHeaderCellDef> Código </th>
+    <td mat-cell *matCellDef="let element"> {{element.cdTipoAtendimento}} </td>
+  </ng-container>
 
+  <!-- Descrição -->
+  <ng-container matColumnDef="dsTipoAtendimento">
+    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+    <td mat-cell *matCellDef="let element"> {{element.dsTipoAtendimento}} </td>
+  </ng-container>
 
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Ação </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent"
+        (click)="openDialog(element)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="deleteTipoAtendimento(element.cdTipoAtendimento)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </td>
+    
+  </ng-container>
 
- 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+  </tr>
+</table>
+
+<router-outlet></router-outlet>
