@@ -14,15 +14,19 @@ import { finalize } from 'rxjs/operators';
 export class TipoAtendimentoaddComponent implements OnInit {
   messageForm: FormGroup;
   tipoatendimento: TipoAtendimento
+  title : string;
   constructor(private formBuilder: FormBuilder,
 
     private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public dados: any,
     public dialogRef: MatDialogRef<TipoAtendimentoaddComponent>) {
-    if (dados != "")
+    if (dados != ""){
       this.tipoatendimento = dados;
-    else
+      this.title = "Editar Tipo de Atendimento " + this.tipoatendimento.cdTipoatendimento;
+    } else {
       this.tipoatendimento = new TipoAtendimento();
+      this.title = "Novo Tipo de Atendimento"
+    }  
   }
 
   onSubmit() {
