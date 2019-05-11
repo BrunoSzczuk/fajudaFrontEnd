@@ -53,9 +53,9 @@ export class DataService {
     return this.http.delete(URL + "locais/" + id);
   }
 
-  deleteTipoAtendimento(id) {
+  deleteTipoAtendimento(id): Observable<Object> {
     console.log('id ' + id)
-    this.http.delete(URL + "tipoatendimento/" + id).subscribe(status => console.log(JSON.stringify(status)));
+    return this.http.delete(URL + "tipoAtendimentos/" + id);
   }
 
   getAtendimentos() {

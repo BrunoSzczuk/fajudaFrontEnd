@@ -7,6 +7,8 @@ import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
+import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
+
 
 
 @Component({
@@ -70,10 +72,23 @@ export class LocalComponent implements OnInit {
   }
   
   deleteLocal(id){
-    this.data.deleteLocal(id).pipe(finalize(() => {
-      this.ngOnInit();
-    })).subscribe(error => {
-      this.ngOnInit();
+      this.data.deleteLocal(id).pipe(finalize(() => {
+        this.ngOnInit();
+      })).subscribe(error => {
+        this.ngOnInit();
+      });
+  }
+
+  private confirmDialog(id) {
+    const dialogRef = this.dialog.open(ConfirmdialogComponent, {
+      width: '550px',
+      data: "Do you confirm the deletion of this data?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.deleteLocal(id);
+      }
     });
   }
 }
