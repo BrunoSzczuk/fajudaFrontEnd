@@ -14,15 +14,19 @@ import { finalize } from 'rxjs/operators';
 export class LocaladdComponent implements OnInit {
   messageForm: FormGroup;
   local: Local
+  title : string;
   constructor(private formBuilder: FormBuilder,
 
     private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public dados: any,
     public dialogRef: MatDialogRef<LocaladdComponent>) {
-    if (dados != "")
+    if (dados != "") {
       this.local = dados;
-    else
+      this.title = "Editar Local " + this.local.cdLocal;
+    } else{
       this.local = new Local();
+      this.title = "Novo Local"
+    }  
   }
 
   onSubmit() {

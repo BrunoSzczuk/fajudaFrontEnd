@@ -6,6 +6,7 @@ import { TipoAtendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimen
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tipoatendimento',
@@ -69,6 +70,10 @@ export class TipoAtendimentoComponent implements OnInit {
   }
   
   deleteTipoAtendimento(id){
-    this.data.deleteTipoAtendimento(id);
+    this.data.deleteTipoAtendimento(id).pipe(finalize(() => {
+      this.ngOnInit();
+    })).subscribe(error => {
+      this.ngOnInit();
+    });
   }
 }
