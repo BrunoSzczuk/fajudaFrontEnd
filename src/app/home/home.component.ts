@@ -6,6 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Local } from '../../models/local';
 import { TipoAtendimento } from '../../models/tipoatendimento';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

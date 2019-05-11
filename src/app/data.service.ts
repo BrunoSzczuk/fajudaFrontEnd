@@ -5,7 +5,7 @@ import { Response } from 'src/models/response';
 import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 
-export var URL = "http://localhost:9090/";
+export var URL = "http://192.168.137.242:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -56,5 +56,9 @@ export class DataService {
   deleteTipoAtendimento(id) {
     console.log('id ' + id)
     this.http.delete(URL + "tipoatendimento/" + id).subscribe(status => console.log(JSON.stringify(status)));
+  }
+
+  getAtendimentos() {
+    return this.http.get<Response>(URL + "atendimentos");
   }
 }

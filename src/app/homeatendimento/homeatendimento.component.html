@@ -1,0 +1,60 @@
+
+
+   <h1>Painel de Atendimentos</h1>
+   
+   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+   
+     <!-- Código  -->
+     <ng-container matColumnDef="cdAtendimento">
+       <th mat-header-cell *matHeaderCellDef> Código </th>
+       <td mat-cell *matCellDef="let element"> {{element.cdAtendimento}} </td>
+     </ng-container>
+   
+     <!-- Data Abertura -->
+     <ng-container matColumnDef="dtAtendimento">
+       <th mat-header-cell *matHeaderCellDef> Data Abertura </th>
+       <td mat-cell *matCellDef="let element"> {{element.dtAtendimento}} </td>
+     </ng-container>
+
+     <!-- Data Fechamento -->
+     <ng-container matColumnDef="dtSolucao">
+      <th mat-header-cell *matHeaderCellDef> Data Fechamento </th>
+      <td mat-cell *matCellDef="let element"> {{element.dtSolucao}} </td>
+    </ng-container>
+
+    <!-- Local -->
+    <ng-container matColumnDef="local">
+      <th mat-header-cell *matHeaderCellDef> Local </th>
+      <td mat-cell *matCellDef="let element"> {{element.local.dsLocal}} </td>
+    </ng-container>
+
+    <!-- Tipo Atendimento 
+    <ng-container matColumnDef="Tipo Atendimento">
+      <th mat-header-cell *matHeaderCellDef> Tipo Atendimento </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemAtendimentos[1].dsTipoatendimento}} </td>
+    </ng-container> 
+
+     Situação 
+    <ng-container matColumnDef="Situação">
+      <th mat-header-cell *matHeaderCellDef> Situação </th>
+      <td mat-cell *matCellDef="let element"> {{element.stAtendimento}} </td>
+    </ng-container> -->
+
+    <!-- Ação -->
+    <ng-container matColumnDef="action">
+       <th mat-header-cell *matHeaderCellDef> Ação </th>
+       <td mat-cell *matCellDef="let element">
+         <button mat-icon-button color="accent"
+           (click)="openDialog(element)">
+           <mat-icon aria-label="Edit">edit</mat-icon>
+         </button>
+       </td>
+       
+     </ng-container>
+   
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+     </tr>
+   </table>
+   
+   <router-outlet></router-outlet>   

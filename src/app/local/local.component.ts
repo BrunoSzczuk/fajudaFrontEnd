@@ -8,6 +8,7 @@ import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-local',
   templateUrl: './local.component.html',

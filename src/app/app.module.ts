@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { CdkTableModule } from '@angular/cdk/table';
+import { HomeAtendimentoComponent } from './homeatendimento/homeatendimento.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     TipoAtendimentoComponent,
     TipoAtendimentoaddComponent,
     LocaladdComponent,
-    LoginComponent
+    LoginComponent,
+    HomeAtendimentoComponent
   ],
   imports: [
     BrowserModule,
