@@ -37,11 +37,7 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     TipoAtendimentoaddComponent,
     LocaladdComponent,
     LoginComponent,
-<<<<<<< HEAD
     HomeAtendimentoComponent
-=======
-    ConfirmdialogComponent,
->>>>>>> ba64b862edc39c7b42d12da92e0172fd5814e29d
   ],
   imports: [
     BrowserModule,
