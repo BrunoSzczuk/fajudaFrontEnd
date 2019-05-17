@@ -5,7 +5,7 @@ import { Response } from 'src/models/response';
 import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 
-export var URL = "http://192.168.137.242:9090/";
+export var URL = "http://localhost:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -17,7 +17,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getTipoAtendimentos() {
+  getTipoAtendimentos(): Observable<Response> {
     return this.http.get<Response>(URL + "tipoAtendimentos");
   }
 
@@ -29,7 +29,7 @@ export class DataService {
     return this.http.put(URL + "tipoAtendimentos/" + tipoatendimento.cdTipoatendimento, tipoatendimento);
   }
 
-  getLocais() {
+  getLocais(): Observable<Response> {
     return this.http.get<Response>(URL + "locais");
   }
 
@@ -54,8 +54,7 @@ export class DataService {
   }
 
   deleteTipoAtendimento(id): Observable<Object> {
-    console.log('id ' + id)
-    return this.http.delete(URL + "tipoAtendimentos/" + id);
+    return this.http.delete(URL + "tipoatendimento/" + id);
   }
 
   getAtendimentos() {
