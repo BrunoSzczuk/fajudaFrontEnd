@@ -51,13 +51,12 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     MatPaginatorModule,
     MatSortModule,
     BrowserAnimationsModule,
-   // ConfirmdialogComponent,
     MatAutocompleteModule,
     MatInputModule,
     MatSnackBarModule,
   ],
   providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent],
- // entryComponents: [ ConfirmdialogComponent ]
+  entryComponents: [ ConfirmdialogComponent ]
 })
 export class AppModule { }
