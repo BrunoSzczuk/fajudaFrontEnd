@@ -1,39 +1,35 @@
 <h1>Solicitar</h1>
 
-<form class = "tp-form">
-    <mat-form-field class = "tp-full-width">
-       <input type = "text" 
-          placeholder = "Locais" 
-          aria-label = "Number" 
-          matInput 
-          [formControl] = "fControlLocais" 
-          [matAutocomplete] = "auto">
-       <mat-autocomplete #auto = "matAutocomplete">
-          <mat-option *ngFor="let local of locais.content" [value]="local.dsLocal">
-           <p>{{ local.dsLocal}}</p>
-          </mat-option>
-       </mat-autocomplete>
-    </mat-form-field>   
+<form class="tp-form">
+   <mat-form-field class="tp-full-width">
+      <input type="text" placeholder="Locais" aria-label="Number" matInput [formControl]="fControlLocais"
+         [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+         <mat-option *ngFor="let local of locais" [value]="local">
+            <p>{{ local.dsLocal}}</p>
+         </mat-option>
+      </mat-autocomplete>
+   </mat-form-field>
 </form>
 
-<form class = "tp-form">
-    <mat-form-field class = "tp-full-width">
-       <input type = "text" 
-          placeholder = "Problemas" 
-          aria-label = "Number" 
-          matInput  
-          [formControl] = "fControlProblemas" 
-          [matAutocomplete] = "auto2">
-       <mat-autocomplete #auto2 = "matAutocomplete">
-          <mat-option *ngFor="let prob of problemas.content" [value]="prob.dsTipoatendimento">
-           <p>{{ prob.dsTipoatendimento}}</p>
-          </mat-option>
-       </mat-autocomplete>
-    </mat-form-field>   
+<form class="tp-form">
+   <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList>
+         <mat-chip *ngFor="let local of selecionados" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(local.dsTipoatendimento)">
+            {{local.dsTipoatendimento}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+         </mat-chip>
+      </mat-chip-list>
+      <input #fuitInput type="text" placeholder="Problemas" aria-label="Number" matInput [formControl]="fControlProblemas"
+         [matAutocomplete]="auto2">
+      <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event)">
+         <mat-option *ngFor="let problema of problemas" [value]="problema">
+            {{problema.dsTipoatendimento}}
+         </mat-option>
+      </mat-autocomplete>
+   </mat-form-field>
 </form>
 
 
-<button class="buttonSave" 
-   (click)="clickSaveAtendimento()"
-   mat-button>Salvar</button>
-
+<button class="buttonSave" (click)="clickSaveAtendimento()" mat-button>Salvar</button>

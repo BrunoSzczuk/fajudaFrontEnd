@@ -17,7 +17,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getTipoAtendimentos() {
+  getTipoAtendimentos() : Observable<Response> {
     return this.http.get<Response>(URL + "tipoAtendimentos");
   }
 
@@ -29,7 +29,7 @@ export class DataService {
     return this.http.put(URL + "tipoAtendimentos/" + tipoatendimento.cdTipoatendimento, tipoatendimento);
   }
 
-  getLocais() {
+  getLocais(): Observable<Response> {
     return this.http.get<Response>(URL + "locais");
   }
 
@@ -54,7 +54,6 @@ export class DataService {
   }
 
   deleteTipoAtendimento(id) {
-    console.log('id ' + id)
     this.http.delete(URL + "tipoatendimento/" + id).subscribe(status => console.log(JSON.stringify(status)));
   }
 }

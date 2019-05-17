@@ -15,7 +15,7 @@ import { TipoAtendimentoaddComponent } from './tipoatendimentoadd/tipoatendiment
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
-import { MatAutocompleteModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MAT_DIALOG_DATA, MatSnackBarModule } from '@angular/material';
+import { MatAutocompleteModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MAT_DIALOG_DATA, MatSnackBarModule, MatChipList, MatChip, MatChipsModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -31,7 +31,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     TipoAtendimentoComponent,
     TipoAtendimentoaddComponent,
     LocaladdComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +41,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatChipsModule,
     MaterialModule,
     FormsModule,
     MatPaginatorModule,
