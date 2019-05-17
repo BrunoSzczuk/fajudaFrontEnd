@@ -20,6 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { CdkTableModule } from '@angular/cdk/table';
+import { HomeAtendimentoComponent } from './homeatendimento/homeatendimento.component';
+import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     TipoAtendimentoaddComponent,
     LocaladdComponent,
     LoginComponent,
+    HomeAtendimentoComponent
   ],
   imports: [
     BrowserModule,
@@ -47,11 +50,13 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatPaginatorModule,
     MatSortModule,
     BrowserAnimationsModule,
+   // ConfirmdialogComponent,
     MatAutocompleteModule,
     MatInputModule,
     MatSnackBarModule
   ],
   providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ // entryComponents: [ ConfirmdialogComponent ]
 })
 export class AppModule { }
