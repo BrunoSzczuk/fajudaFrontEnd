@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { TipoAtendimentoaddComponent } from '../tipoatendimentoadd/tipoatendimentoadd.component';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
+import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
 
 @Component({
   selector: 'app-tipoatendimento',
@@ -23,7 +24,8 @@ export class TipoAtendimentoComponent implements OnInit {
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private snackBar : MatSnackBar,) {
 
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -72,8 +74,31 @@ export class TipoAtendimentoComponent implements OnInit {
   deleteTipoAtendimento(id){
     this.data.deleteTipoAtendimento(id).pipe(finalize(() => {
       this.ngOnInit();
+      this.openSnackBar("Excluído com sucesso!", "Fechar");
     })).subscribe(error => {
       this.ngOnInit();
+      this.openSnackBar("Ocorreu um erro!", "Fechar");
     });
   }
+
+  private confirmDialog(id) {
+    const dialogRef = this.dialog.open(ConfirmdialogComponent, {
+      width: '550px',
+      data: "Deseja realmente excluir o tipo de atendimento?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.deleteTipoAtendimento(id);
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
+
 }
+

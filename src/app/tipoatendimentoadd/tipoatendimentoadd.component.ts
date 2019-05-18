@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { finalize } from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ export class TipoAtendimentoaddComponent implements OnInit {
   tipoatendimento: TipoAtendimento
   title : string;
   constructor(private formBuilder: FormBuilder,
+    private snackBar : MatSnackBar,
 
     private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public dados: any,
@@ -33,14 +34,18 @@ export class TipoAtendimentoaddComponent implements OnInit {
     if (this.tipoatendimento.cdTipoatendimento > 0) {
       this.dataService.updateAtendimento(this.tipoatendimento).pipe(finalize(() => {
         this.dialogRef.close();
+        this.openSnackBar("Salvo com sucesso!", "Fechar");
       })).subscribe(error => {
         this.dialogRef.close();
+        this.openSnackBar("Ocorreu um erro!", "Fechar");
       });
     } else {
       this.dataService.postTipoAtendimento(this.tipoatendimento).pipe(finalize(() => {
         this.dialogRef.close();
+        this.openSnackBar("Salvo com sucesso!", "Fechar");
       })).subscribe(error => {
         this.dialogRef.close();
+        this.openSnackBar("Ocorreu um erro!", "Fechar");
       });
     }
   }
@@ -51,6 +56,12 @@ export class TipoAtendimentoaddComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

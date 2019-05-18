@@ -2,6 +2,7 @@
   <mat-card-header>
     <mat-card-title>{{title}}</mat-card-title>
   </mat-card-header>
+  <h2>{{error}}</h2>
   <div class="row">
     <mat-form-field>
       <input matInput placeholder="Descrição" [(ngModel)]="local.dsLocal" required>
@@ -21,7 +22,7 @@
   </div>
 
   <mat-card-actions>
-    <button class="button1" (click)="onSubmit()" mat-button>Salvar</button>
+    <button class="button1" (click)="onSubmit()" mat-button >Salvar</button>
 
     <button class="button3" (click)="onCancelar()" mat-button>Cancelar</button>
   </mat-card-actions>

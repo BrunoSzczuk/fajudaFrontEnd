@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { LocaladdComponent } from '../localadd/localadd.component';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
@@ -26,7 +26,8 @@ export class LocalComponent implements OnInit {
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) {
 
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -74,21 +75,29 @@ export class LocalComponent implements OnInit {
   deleteLocal(id){
       this.data.deleteLocal(id).pipe(finalize(() => {
         this.ngOnInit();
+        this.openSnackBar("Excluído com sucesso!", "Fechar");
       })).subscribe(error => {
         this.ngOnInit();
+        this.openSnackBar("Ocorreu um erro!", "Fechar");
       });
   }
 
   private confirmDialog(id) {
     const dialogRef = this.dialog.open(ConfirmdialogComponent, {
       width: '550px',
-      data: "Do you confirm the deletion of this data?"
+      data: "Deseja realmente excluir o local?"
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.deleteLocal(id);
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
     });
   }
 }
