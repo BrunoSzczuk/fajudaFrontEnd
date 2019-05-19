@@ -54,7 +54,7 @@ export class DataService {
   }
 
   deleteTipoAtendimento(id): Observable<Object> {
-    return this.http.delete(URL + "tipoatendimento/" + id);
+    return this.http.delete(URL + "tipoatendimentos/" + id);
   }
 
   getAtendimentos() {

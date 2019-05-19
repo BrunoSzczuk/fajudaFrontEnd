@@ -15,7 +15,7 @@ import { TipoAtendimentoaddComponent } from './tipoatendimentoadd/tipoatendiment
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { LocaladdComponent } from './localadd/localadd.component';
-import { MatAutocompleteModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MAT_DIALOG_DATA, MatSnackBarModule, MatChipList, MatChip, MatChipsModule } from '@angular/material';
+import { MatAutocompleteModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MAT_DIALOG_DATA, MatSnackBarModule, MatChipList, MatChip, MatChipsModule, MatSelect, MatSelectModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -29,6 +29,7 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     AboutComponent,
     ContactComponent,
     HomeComponent,
+    ConfirmdialogComponent,
     LocalComponent,
     TipoAtendimentoComponent,
     TipoAtendimentoaddComponent,
@@ -42,6 +43,7 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     MatTableModule,
     AppRoutingModule,
     MatIconModule,
+    MatSelectModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatChipsModule,
@@ -50,13 +52,12 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     MatPaginatorModule,
     MatSortModule,
     BrowserAnimationsModule,
-   // ConfirmdialogComponent,
     MatAutocompleteModule,
     MatInputModule,
     MatSnackBarModule
   ],
   providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent],
- // entryComponents: [ ConfirmdialogComponent ]
+  entryComponents: [ ConfirmdialogComponent ]
 })
 export class AppModule { }

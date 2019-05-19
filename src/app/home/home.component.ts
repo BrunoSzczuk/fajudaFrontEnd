@@ -18,18 +18,18 @@ export class HomeComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  selecionados : TipoAtendimento[];
+  selecionados: TipoAtendimento[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   problemasFiltrados: Observable<TipoAtendimento[]>;
 
-
+  local: Local;
   locais: Local[];
   problemas: TipoAtendimento[];
   fControlLocais = new FormControl();
   fControlProblemas = new FormControl();
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('auto2') matAutocomplete: MatAutocomplete;
+  @ViewChild('auto') matAutocompleteLocal: MatAutocomplete;
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
-
   constructor(private data: DataService, private router: Router) {
     this.problemasFiltrados = this.fControlProblemas.valueChanges.pipe(
       startWith(null),
@@ -57,20 +57,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  remove(fruit: TipoAtendimento): void {
-    console.log("entrou no remove")
-    const index = this.problemas.indexOf(fruit);
-
+  remove(tipo: TipoAtendimento): void {
+    const index = this.selecionados.indexOf(tipo);
     if (index >= 0) {
-      this.problemas.splice(index, 1);
+      this.selecionados.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log("entrou no selected")
-    let tipo = new TipoAtendimento();
-    tipo.dsTipoatendimento = event.option.viewValue;
-    //this.problemas.push(tipo);
+    if (this.find(event.option.viewValue, this.selecionados) != null) {
+      return;
+    }
+    let tipo = this.find(event.option.viewValue, this.problemas);
+    this.selecionados.push(tipo);
     this.fruitInput.nativeElement.value = '';
     this.fControlProblemas.setValue(null);
   }
@@ -79,6 +78,13 @@ export class HomeComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.problemas.filter(fruit => fruit.dsTipoatendimento.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  find(descricao: string, lista: TipoAtendimento[]): TipoAtendimento {
+    if (lista.length > 0) {
+      return lista.find(obj => obj.dsTipoatendimento == descricao);
+    }
+    return null;
   }
 
   ngOnInit(): void {
@@ -91,7 +97,8 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  private clickSaveAtendimento(local: Local, tipoAtendimentos: TipoAtendimento[]): void {
-
+  private clickSaveAtendimento(): void {
+    console.log("local: " + JSON.stringify(this.local))
+    console.log("tipos de atendimento " + JSON.stringify(this.selecionados))
   }
 }
