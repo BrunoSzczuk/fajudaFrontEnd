@@ -35,7 +35,8 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     TipoAtendimentoaddComponent,
     LocaladdComponent,
     LoginComponent,
-    HomeAtendimentoComponent
+    HomeAtendimentoComponent,
+    ConfirmdialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,7 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent],

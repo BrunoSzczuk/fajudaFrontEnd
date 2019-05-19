@@ -16,7 +16,7 @@ export class HomeAtendimentoComponent implements OnInit {
 
   private atendimentos: Atendimento[];
   dataSource;
-  displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local'/*, 'itemAtendimentos[1]', 'stAtendimento'*/, 'action'];
+  displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local', 'itemAtendimentos', 'stAtendimento', 'action'];
   selection = new SelectionModel<Atendimento>(true, []);
   constructor(private data: DataService,
     private router: Router,
@@ -48,6 +48,7 @@ export class HomeAtendimentoComponent implements OnInit {
   ngOnInit() {
     this.data.getAtendimentos().subscribe(response => {
       this.atendimentos = response.content
+      console.log(" objeto atendimento: " + this.atendimentos[0].itematendimentos[0].dsTipoatendimento)
       this.dataSource = new MatTableDataSource(this.atendimentos);
     })
 

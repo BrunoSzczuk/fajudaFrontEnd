@@ -5,7 +5,7 @@ import { Response } from 'src/models/response';
 import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 
-export var URL = "http://localhost:9090/";
+export var URL = "http://192.168.137.242:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -37,7 +37,7 @@ export class DataService {
     return this.http.get<Response>(URL + "locais" + FILTRO + "dsLocal=" + dsLocal);
   }
 
-  postLocal(local: Local): Observable<Object> {
+  postLocal(local: Local) {
     return this.http.post(URL + "locais", local);
   }
 
