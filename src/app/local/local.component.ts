@@ -21,6 +21,7 @@ export class LocalComponent implements OnInit {
 
   private locais: Local[];
   dataSource;
+  error: string;
   displayedColumns: String[] = ['cdLocal', 'dsLocal', 'obsLocal', 'action'];
   selection = new SelectionModel<Local>(true, []);
   constructor(private data: DataService,
@@ -59,11 +60,11 @@ export class LocalComponent implements OnInit {
 
   }
 
-  private openDialog(local : Local): void {
+  private openDialog(local: Local): void {
     console.log(local)
     const dialogRef = this.dialog.open(LocaladdComponent, {
       width: '550px',
-      data : local
+      data: local
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -71,15 +72,16 @@ export class LocalComponent implements OnInit {
       this.ngOnInit();
     });
   }
-  
-  deleteLocal(id){
-      this.data.deleteLocal(id).pipe(finalize(() => {
-        this.ngOnInit();
-        this.openSnackBar("Excluído com sucesso!", "Fechar");
-      })).subscribe(error => {
-        this.ngOnInit();
-        this.openSnackBar("Ocorreu um erro!", "Fechar");
-      });
+
+  deleteLocal(id) {
+    this.data.deleteLocal(id).subscribe(result => {
+      this.ngOnInit()
+      this.openSnackBar("Excluído com sucesso!", "Fechar", 2000)
+    }, error => {
+      this.ngOnInit();
+      this.error = error.error.message
+      this.openSnackBar(this.error, "Fechar", 7000)
+    });
   }
 
   private confirmDialog(id) {
@@ -89,15 +91,15 @@ export class LocalComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.deleteLocal(id);
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, duration: number) {
     this.snackBar.open(message, action, {
-      duration: 3000,
+      duration: duration,
     });
   }
 }
