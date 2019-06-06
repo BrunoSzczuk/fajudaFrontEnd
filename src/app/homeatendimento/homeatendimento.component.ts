@@ -48,9 +48,21 @@ export class HomeAtendimentoComponent implements OnInit {
   ngOnInit() {
     this.data.getAtendimentos().subscribe(response => {
       this.atendimentos = response.content
-      console.log(" objeto atendimento: " + this.atendimentos[0].itematendimentos[0].dsTipoatendimento)
+      //console.log(" objeto atendimento: " + this.atendimentos[0].itematendimentos[0].dsTipoatendimento)
       this.dataSource = new MatTableDataSource(this.atendimentos);
     })
 
+  }
+
+  getDsAtendimentos(element){
+    console.log("umelement")
+    let retorno = "";
+    let array = element;
+    console.log(array)
+    for (let i = 0; i < array.length; i++) {
+      retorno += retorno.length > 0 ? ", " + array[i].tipoAtendimento.dsTipoatendimento : 
+        "" + array[i].tipoAtendimento.dsTipoatendimento;
+    }
+    return retorno;
   }
 }
