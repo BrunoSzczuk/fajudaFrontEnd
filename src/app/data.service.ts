@@ -53,7 +53,7 @@ export class DataService {
   }
 
   deleteTipoAtendimento(id): Observable<Object> {
-    return this.http.delete(URL + "tipoatendimentos/" + id);
+    return this.http.delete(URL + "tipoAtendimentos/" + id);
   }
 
   getAtendimentos() {
