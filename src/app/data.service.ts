@@ -9,7 +9,6 @@ export var URL = "http://192.168.137.145:9090/";
 
 var FILTRO = "/filtro?";
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -54,7 +53,7 @@ export class DataService {
   }
 
   deleteTipoAtendimento(id): Observable<Object> {
-    return this.http.delete(URL + "tipoatendimentos/" + id);
+    return this.http.delete(URL + "tipoAtendimentos/" + id);
   }
 
   getAtendimentos() {

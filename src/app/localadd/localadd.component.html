@@ -1,8 +1,6 @@
-<mat-card>
   <mat-card-header>
     <mat-card-title>{{title}}</mat-card-title>
   </mat-card-header>
-  <h2>{{error}}</h2>
   <div class="row">
     <mat-form-field>
       <input matInput placeholder="Descrição" [(ngModel)]="local.dsLocal" required>
@@ -26,4 +24,3 @@
 
     <button class="button3" (click)="onCancelar()" mat-button>Cancelar</button>
   </mat-card-actions>
-</mat-card>
