@@ -5,10 +5,9 @@ import { Response } from 'src/models/response';
 import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 
-export var URL = "http://192.168.137.242:9090/";
+export var URL = "http://192.168.137.145:9090/";
 
 var FILTRO = "/filtro?";
-
 
 @Injectable({
   providedIn: 'root'
