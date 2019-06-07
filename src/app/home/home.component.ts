@@ -8,6 +8,8 @@ import { Local } from '../../models/local';
 import { TipoAtendimento } from '../../models/tipoatendimento';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { Atendimento } from 'src/models/atendimento';
+import { ItemAtendimento } from 'src/models/itemAtendimento';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -100,5 +102,18 @@ export class HomeComponent implements OnInit {
   private clickSaveAtendimento(): void {
     console.log("local: " + JSON.stringify(this.local))
     console.log("tipos de atendimento " + JSON.stringify(this.selecionados))
+    let atendimento = new Atendimento();
+    atendimento.dtAtendimento = new Date();
+    atendimento.local = this.local;
+    atendimento.stAtendimento = "ABERTO";
+
+    atendimento.itematendimentos = [];
+    for (let i = 0; i < this.selecionados.length; i++) {
+      const element = this.selecionados[i];
+      let item = new ItemAtendimento();
+      item.tipoAtendimento = element;
+      atendimento.itematendimentos.push(item)
+    }
+    this.data.postAtendimento(atendimento);
   }
 }

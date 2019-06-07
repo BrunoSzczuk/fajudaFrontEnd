@@ -5,6 +5,7 @@
 }
 
 .tp-full-width {
+  height: 100%;
   width: 100%;
 }
 
@@ -13,4 +14,16 @@
   color: white;
   width: 75px;
   border-radius: 25%;
+}
+
+.center{
+  width: 75%;
+  margin: 10px auto;
+}
+
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
