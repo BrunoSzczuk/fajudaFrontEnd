@@ -6,11 +6,7 @@ import { Observable } from 'rxjs';
 import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { Atendimento } from 'src/models/atendimento';
 
-<<<<<<< HEAD
 export var URL = "http://localhost:9090/";
-=======
-export var URL = "http://192.168.137.145:9090/";
->>>>>>> 74724b3fb3f77e997743064ddbc9832597642731
 
 var FILTRO = "/filtro?";
 
