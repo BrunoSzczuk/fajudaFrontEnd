@@ -19,6 +19,7 @@ export class TipoAtendimentoComponent implements OnInit {
 
   private tipoatendimento: TipoAtendimento[];
   dataSource;
+  error:string;
   displayedColumns: String[] = ['cdTipoatendimento', 'dsTipoatendimento', 'action'];
   selection = new SelectionModel<TipoAtendimento>(true, []);
   constructor(private data: DataService,
@@ -72,12 +73,14 @@ export class TipoAtendimentoComponent implements OnInit {
   }
   
   deleteTipoAtendimento(id){
-    this.data.deleteTipoAtendimento(id).pipe(finalize(() => {
+    this.data.deleteTipoAtendimento(id).subscribe(result => {
       this.ngOnInit();
-      this.openSnackBar("Excluído com sucesso!", "Fechar");
-    })).subscribe(error => {
+      this.openSnackBar("Excluído com sucesso!", "Fechar", 2000)
+    }, error => {
       this.ngOnInit();
-      this.openSnackBar("Ocorreu um erro!", "Fechar");
+      this.error = error.error.message
+      console.log(error.error.message)
+      this.openSnackBar(this.error, "Fechar", 7000)
     });
   }
 
@@ -89,12 +92,13 @@ export class TipoAtendimentoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+        console.log(id)
         this.deleteTipoAtendimento(id);
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, duration: number) {
     this.snackBar.open(message, action, {
       duration: 3000,
     });

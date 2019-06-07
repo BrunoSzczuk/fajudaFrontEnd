@@ -31,7 +31,7 @@
     <!-- Tipo Atendimento--> 
     <ng-container matColumnDef="itemAtendimentos">
       <th mat-header-cell *matHeaderCellDef> Tipo Atendimento </th>
-      <td mat-cell *matCellDef="let element"> {{element.itematendimentos[0].tipoatendimento.stAtivo}} </td>
+      <td mat-cell *matCellDef="let element"> {{getDsAtendimentos(element.itematendimentos)}} </td>
     </ng-container> 
 
      <!--Situação--> 

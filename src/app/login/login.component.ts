@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Usuario } from './usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         credentials => {
           this.router.navigate(['/'], { replaceUrl: true });
+          Globals.login = ""
+          Globals.senha = ""
         }, error => {
           this.error = error.errors[0].detail;
         }

@@ -15,6 +15,8 @@ export class TipoAtendimentoaddComponent implements OnInit {
   messageForm: FormGroup;
   tipoatendimento: TipoAtendimento
   title : string;
+  error : string;
+
   constructor(private formBuilder: FormBuilder,
     private snackBar : MatSnackBar,
 
@@ -32,20 +34,19 @@ export class TipoAtendimentoaddComponent implements OnInit {
 
   onSubmit() {
     if (this.tipoatendimento.cdTipoatendimento > 0) {
-      this.dataService.updateAtendimento(this.tipoatendimento).pipe(finalize(() => {
+      this.dataService.updateAtendimento(this.tipoatendimento).subscribe( result => {
         this.dialogRef.close();
-        this.openSnackBar("Salvo com sucesso!", "Fechar");
-      })).subscribe(error => {
-        this.dialogRef.close();
-        this.openSnackBar("Ocorreu um erro!", "Fechar");
+        this.openSnackBar("Salvo com sucesso!", "Fechar", 2000);
+      }, error => {
+        this.openSnackBar(this.error, "Fechar", 7000);
       });
     } else {
-      this.dataService.postTipoAtendimento(this.tipoatendimento).pipe(finalize(() => {
+      this.dataService.postTipoAtendimento(this.tipoatendimento).subscribe( result => {
         this.dialogRef.close();
-        this.openSnackBar("Salvo com sucesso!", "Fechar");
-      })).subscribe(error => {
-        this.dialogRef.close();
-        this.openSnackBar("Ocorreu um erro!", "Fechar");
+        this.openSnackBar("Salvo com sucesso!", "Fechar", 2000);
+      }, error => {
+        this.error = error.error.errors[0].message
+        this.openSnackBar(this.error, "Fechar", 7000);
       });
     }
   }
@@ -58,9 +59,9 @@ export class TipoAtendimentoaddComponent implements OnInit {
 
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, duration: number) {
     this.snackBar.open(message, action, {
-      duration: 3000,
+      duration: duration,
     });
   }
 

@@ -15,7 +15,8 @@ export class LocaladdComponent implements OnInit {
   messageForm: FormGroup;
   local: Local
   title : string;
-  error : string
+  error : string;
+  
   constructor(private formBuilder: FormBuilder,
     private snackBar : MatSnackBar,
 
