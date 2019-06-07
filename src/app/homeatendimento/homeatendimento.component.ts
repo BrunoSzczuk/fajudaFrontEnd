@@ -50,7 +50,6 @@ export class HomeAtendimentoComponent implements OnInit {
   ngOnInit() {
     this.data.getAtendimentos().subscribe(response => {
       this.atendimentos = response.content
-      //console.log(" objeto atendimento: " + this.atendimentos[0].itematendimentos[0].dsTipoatendimento)
       this.dataSource = new MatTableDataSource(this.atendimentos);
     })
 
