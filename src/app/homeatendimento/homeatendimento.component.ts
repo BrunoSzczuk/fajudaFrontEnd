@@ -5,6 +5,8 @@ import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Atendimento } from 'src/models/atendimento';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
+import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-homeatendimento',
@@ -15,7 +17,7 @@ import { finalize } from 'rxjs/operators';
 export class HomeAtendimentoComponent implements OnInit {
 
   private atendimentos: Atendimento[];
-  private atendimento : Atendimento = new Atendimento();
+  private atendimento: Atendimento = new Atendimento();
   dataSource;
   displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local', 'itemAtendimentos', 'stAtendimento', 'action'];
   selection = new SelectionModel<Atendimento>(true, []);
@@ -55,42 +57,74 @@ export class HomeAtendimentoComponent implements OnInit {
 
   }
 
-  getDsAtendimentos(element){
+  getDsAtendimentos(element) {
     let retorno = "";
     let array = element;
-    console.log(array)
     for (let i = 0; i < array.length; i++) {
-      retorno += (retorno.length > 0 ? ", " : "") + array[i].tipoAtendimento.dsTipoatendimento;
+      retorno += retorno.length > 0 ? ", " + array[i].tipoAtendimento.dsTipoatendimento :
+        "" + array[i].tipoAtendimento.dsTipoatendimento;
     }
     return retorno;
   }
 
-  altAtendimento(element){
+  async altAtendimento(element) {
     this.atendimento = element;
+    console.log(element)
     if (this.atendimento.stAtendimento == "ABERTO") {
-        this.atendimento.stAtendimento = "EM_ATENDIMENTO"
-        this.data.updateAtendimento(this.atendimento).subscribe(response =>{
-          if(response){
-            this.openSnackBar("Atendimento sendo realizado", "OK", 2000)
-          }
-        }, error => {
-          this.openSnackBar(error, "FECHAR", 7000)
-        });
-    } 
-    else if (this.atendimento.stAtendimento == "EM_ATENDIMENTO"){
-      this.atendimento.stAtendimento = "FECHADO"
-        this.data.updateAtendimento(this.atendimento).subscribe(response =>{
-          if(response){
-            this.openSnackBar("Atendimento encerrado", "OK", 2000)
-          }
-        }, error => {
-          this.openSnackBar(error, "FECHAR", 7000)
-        });
+      this.atendimento.stAtendimento = "EM_ATENDIMENTO"
+      this.data.updateAtendimento(this.atendimento).subscribe(response => {
+        this.openSnackBar("Atendimento sendo realizado", "OK", 4000)
+      }, error => {
+        this.openSnackBar(error.error.message, "FECHAR", 7000)
+      });
+
+    }
+    else if (this.atendimento.stAtendimento == "EM_ATENDIMENTO") {
+      this.confirmDialog(element);
     }
   }
   openSnackBar(message: string, action: string, duration: number) {
     this.snackBar.open(message, action, {
       duration: duration,
     });
+  }
+
+  getIcon(element){
+    if(element.stAtendimento == 'ABERTO'){
+      return 'play_circle_filled'
+    } else if (element.stAtendimento == 'EM_ATENDIMENTO'){
+      return 'done'
+    } else{
+      return 'done_all'
+    }
+  }
+
+  isDisable(element){
+    if(element.stAtendimento == 'FECHADO'){
+      return true;
+    }
+    return false;
+  }
+
+  private confirmDialog(element) {
+    const dialogRef = this.dialog.open(ConfirmdialogComponent, {
+      width: '550px',
+      data: "Deseja realmente fechar o atendimento?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fecharAtendimento(element)
+      }
+    });
+  }
+
+  fecharAtendimento(element){
+    this.atendimento.stAtendimento = "FECHADO"
+      this.data.updateAtendimento(this.atendimento).subscribe(response => {
+        this.openSnackBar("Atendimento encerrado", "OK", 2000)
+      }, error => {
+        this.openSnackBar(error.error.message, "FECHAR", 7000)
+      });
   }
 }
