@@ -1,26 +1,25 @@
-  <mat-card-header>
-    <mat-card-title>{{title}}</mat-card-title>
-  </mat-card-header>
-  <div class="row">
-    <mat-form-field>
-      <input matInput placeholder="Descrição" [(ngModel)]="local.dsLocal" required>
-    </mat-form-field>
-  </div>
+<mat-card-header>
+  <mat-card-title>{{title}}</mat-card-title>
+</mat-card-header>
+<div>
+  <mat-form-field class="sizeComponents">
+    <input matInput placeholder="Descrição" [(ngModel)]="local.dsLocal" required>
+  </mat-form-field>
+</div>
 
-  <div class="row">
-    <mat-form-field>
-      <input matInput placeholder="Observação" [(ngModel)]="local.obsLocal">
-    </mat-form-field>
-  </div>
-  <div class="row">
-    <label>
-      Status:
-      <mat-checkbox [(ngModel)]="local.stAtivo">Ativo</mat-checkbox>
-    </label>
-  </div>
+<div>
+  <mat-form-field class="sizeComponents">
+    <input matInput placeholder="Observação" [(ngModel)]="local.obsLocal">
+  </mat-form-field>
+</div>
 
-  <mat-card-actions>
-    <button class="button1" (click)="onSubmit()" mat-button >Salvar</button>
-
-    <button class="button3" (click)="onCancelar()" mat-button>Cancelar</button>
-  </mat-card-actions>
+<div>
+  <label>
+    Status:
+    <mat-checkbox [(ngModel)]="local.stAtivo">Ativo</mat-checkbox>
+  </label>
+</div>
+<mat-card-actions>
+  <button class="btnSalvar" (click)="onSubmit()" mat-button>Salvar</button>
+  <button class="btnCancelar" (click)="onCancelar()" mat-button>Cancelar</button>
+</mat-card-actions>

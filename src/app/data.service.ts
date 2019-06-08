@@ -7,7 +7,7 @@ import { TipoAtendimento } from 'src/models/tipoatendimento';
 import { Atendimento } from 'src/models/atendimento';
 import { AuthService } from './login/auth.service';
 
-export var URL = "http://localhost:9090/";
+export var URL = "http://192.168.137.145:9090/";
 
 var FILTRO = "/filtro?";
 
@@ -32,7 +32,7 @@ export class DataService {
 
     return this.http.post(URL + "tipoAtendimentos", tipoatendimento, this.HEADER_TOKEN);
   }
-  updateAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
+  updateTipoAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
     return this.http.put(URL + "tipoAtendimentos/" + tipoatendimento.cdTipoatendimento, tipoatendimento, this.HEADER_TOKEN);
   }
 
@@ -66,5 +66,9 @@ export class DataService {
 
   getAtendimentos() {
     return this.http.get<Response>(URL + "atendimentos", this.HEADER_TOKEN);
+  }
+
+  updateAtendimento(atendimento: Atendimento): Observable<Object> {
+    return this.http.put(URL + "atendimentos/" + atendimento.cdAtendimento, atendimento);
   }
 }
