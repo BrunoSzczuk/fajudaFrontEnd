@@ -1,38 +1,44 @@
-<div class="main-div">
-   <mat-card class="tp-full-width">
-      <div class="tp-full-width center">
-         <mat-label style="font-size: 20px">Solicitar</mat-label>
-         <form class="tp-form">
-            <mat-form-field class="tp-full-width">
-               <mat-label>Local</mat-label>
-               <mat-select [(value)]="local">
-                  <mat-option *ngFor="let local of locais" [value]="local">
-                     {{local.cdLocal}} - {{local.dsLocal}}
-                  </mat-option>
-               </mat-select>
-            </mat-form-field>
-         </form>
+<div class="col-md-10 offset-md-1">
 
-         <form class="tp-form">
-            <mat-form-field class="tp-full-width">
-               <mat-label>Problemas</mat-label>
-               <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let problema of selecionados" [selectable]="selectable" [removable]="removable"
-                     (removed)="remove(problema)">
-                     {{problema.dsTipoatendimento}}
-                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
-               </mat-chip-list>
-               <input #fruitInput type="text" aria-label="Number" matInput [formControl]="fControlProblemas"
-                  [matAutocomplete]="auto2">
-               <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event)">
-                  <mat-option *ngFor="let problema of problemas" [value]="problema">
-                     {{problema.dsTipoatendimento}}
-                  </mat-option>
-               </mat-autocomplete>
-            </mat-form-field>
-         </form>
-         <button class="buttonSave" (click)="clickSaveAtendimento()" mat-button>Salvar</button>
+   <!-- form complex example -->
+   <div class="card-body">
+      <div class="form-row mt-4">
+         <div class="col-sm-2 pb-3 pr-5">
+            <div class="tp-full-width center">
+               <mat-label style="font-size: 20px">Solicitar</mat-label>
+               <form class="tp-form">
+                  <mat-form-field class="tp-full-width">
+                     <mat-label>Local</mat-label>
+                     <mat-select [(value)]="local">
+                        <mat-option *ngFor="let local of locais" [value]="local">
+                           {{local.cdLocal}} - {{local.dsLocal}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </form>
+
+               <form class="tp-form">
+                  <mat-form-field class="tp-full-width">
+                     <mat-label>Problemas</mat-label>
+                     <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let problema of selecionados" [selectable]="selectable"
+                           [removable]="removable" (removed)="remove(problema)">
+                           {{problema.dsTipoatendimento}}
+                           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                     </mat-chip-list>
+                     <input #fruitInput type="text" aria-label="Number" matInput [formControl]="fControlProblemas"
+                        [matAutocomplete]="auto2">
+                     <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let problema of problemas" [value]="problema">
+                           {{problema.dsTipoatendimento}}
+                        </mat-option>
+                     </mat-autocomplete>
+                  </mat-form-field>
+               </form>
+               <button class="buttonSave" (click)="clickSaveAtendimento()" mat-button>Salvar</button>
+            </div>
+         </div>
       </div>
-   </mat-card>
+   </div>
 </div>

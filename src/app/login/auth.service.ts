@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Usuario } from './usuario';
-import { Observable, Observer, of } from 'rxjs';
+import { Observable, Observer, of, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { URL } from '../data.service';
@@ -24,35 +24,21 @@ export class AuthService {
   private _credentials: Credentials | null;
   private usuarioAuth: boolean = false;
 
-  showMenuEmitter = new EventEmitter<boolean>();
+  showMenuEmitter = new BehaviorSubject<boolean>(false);
 
   constructor(private router: Router,
     private http: HttpClient) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
+      this.usuarioAuth = true;
+      this.showMenuEmitter.next(true);
+      this.router.navigate(["/"])
     }
 
   }
 
-
-
   doLogin(context: LoginContext): Observable<Credentials> {
-
-    /*
-    console.log(context.username);
-    console.log(context.password);
-    if (context.username === 'josegay' && context.password ==='sim'){
-      this.usuarioAuth = true;
-
-      this.showMenuEmitter.emit(true);
-
-      this.router.navigate(['/']);
-
-    }else{
-      this.usuarioAuth = false;
-      this.showMenuEmitter.emit(false); 
-    }*/
 
     return Observable.create((observer: Observer<any>) => {
       const httpOptions = {
@@ -71,7 +57,7 @@ export class AuthService {
             };
             //será que precisa???
             this.usuarioAuth = true;
-            this.showMenuEmitter.emit(true);
+            this.showMenuEmitter.next(true);
 
             //
             this.setCredentials(data);
@@ -80,7 +66,7 @@ export class AuthService {
           } else {
             //será que precisa???
             this.usuarioAuth = false;
-            this.showMenuEmitter.emit(false);
+            this.showMenuEmitter.next(false);
 
             //
             observer.error(response);
@@ -93,6 +79,22 @@ export class AuthService {
     return this.usuarioAuth;
   }
 
+  getToken(){
+    return this._credentials.token;
+  }
+
+  doLogout() {
+    sessionStorage.removeItem(credentialsKey);
+    localStorage.removeItem(credentialsKey);
+    this.usuarioAuth = false;
+    this.showMenuEmitter.next(false);
+    this._credentials = null;
+    this.router.navigate(["/login"])
+  }
+
+  get isLoggedIn() {
+    return this.showMenuEmitter.asObservable(); // {2}
+  }
   private setCredentials(credentials?: Credentials) {
     this._credentials = credentials || null;
 
