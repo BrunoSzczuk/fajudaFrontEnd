@@ -45,8 +45,8 @@
        <th mat-header-cell *matHeaderCellDef> Ação </th>
        <td mat-cell *matCellDef="let element">
          <button mat-icon-button color="accent"
-           (click)="altAtendimento(element)">
-           <mat-icon aria-label="Edit">play_circle_filled</mat-icon>
+           (click)="altAtendimento(element)" [disabled]="isDisable(element)">
+           <mat-icon>{{getIcon(element)}}</mat-icon>
          </button>
        </td>
        

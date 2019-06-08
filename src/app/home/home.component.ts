@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 import { Local } from '../../models/local';
 import { TipoAtendimento } from '../../models/tipoatendimento';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatSnackBar } from '@angular/material';
 import { Atendimento } from 'src/models/atendimento';
 import { ItemAtendimento } from 'src/models/itemAtendimento';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  error: string;
   selecionados: TipoAtendimento[] = [];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   problemasFiltrados: Observable<TipoAtendimento[]>;
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('auto2') matAutocomplete: MatAutocomplete;
   @ViewChild('auto') matAutocompleteLocal: MatAutocomplete;
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
-  constructor(private data: DataService, private router: Router) {
+  constructor(private data: DataService, private router: Router, private snackBar: MatSnackBar) {
+
     this.problemasFiltrados = this.fControlProblemas.valueChanges.pipe(
       startWith(null),
       map((problema: string | null) => problema ? this._filter(problema) : this.problemas.slice()));
@@ -100,8 +103,6 @@ export class HomeComponent implements OnInit {
   }
 
   private clickSaveAtendimento(): void {
-    console.log("local: " + JSON.stringify(this.local))
-    console.log("tipos de atendimento " + JSON.stringify(this.selecionados))
     let atendimento = new Atendimento();
     atendimento.dtAtendimento = new Date();
     atendimento.local = this.local;
@@ -114,6 +115,19 @@ export class HomeComponent implements OnInit {
       item.tipoAtendimento = element;
       atendimento.itematendimentos.push(item)
     }
-    this.data.postAtendimento(atendimento);
+    this.data.postAtendimento(atendimento).subscribe(result => {
+      this.openSnackBar("Atendimento salvo com sucesso!", "Fechar", 2000);
+      this.selecionados = [];
+      this.local = new Local();
+    }, error => {
+      this.openSnackBar(this.error, "Fechar", 7000);
+    });
+  }
+
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this.snackBar.open(message, action, {
+      duration: duration,
+    });
   }
 }

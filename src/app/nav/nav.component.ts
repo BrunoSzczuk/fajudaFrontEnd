@@ -11,12 +11,21 @@ export class NavComponent implements OnInit {
   appTitle: string = 'FAjuda';
   showMenu: boolean = false;
 
-  constructor(private authService : AuthService) { }
+  constructor(private authService: AuthService) {
 
-  ngOnInit(){
-    this.authService.showMenuEmitter.subscribe(
-      show => this.showMenu = show
+    this.authService.isLoggedIn.subscribe(
+      show => {
+        this.showMenu = show
+      }
     );
   }
 
+  ngOnInit() {
+
+  }
+
+
+  logout(){
+    this.authService.doLogout();
+  }
 }
