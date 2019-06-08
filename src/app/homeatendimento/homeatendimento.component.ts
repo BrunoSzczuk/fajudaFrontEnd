@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Atendimento } from 'src/models/atendimento';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
@@ -15,13 +15,15 @@ import { finalize } from 'rxjs/operators';
 export class HomeAtendimentoComponent implements OnInit {
 
   private atendimentos: Atendimento[];
+  private atendimento : Atendimento = new Atendimento();
   dataSource;
   displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local', 'itemAtendimentos', 'stAtendimento', 'action'];
   selection = new SelectionModel<Atendimento>(true, []);
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) {
 
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -54,14 +56,41 @@ export class HomeAtendimentoComponent implements OnInit {
   }
 
   getDsAtendimentos(element){
-    console.log("umelement")
     let retorno = "";
     let array = element;
     console.log(array)
     for (let i = 0; i < array.length; i++) {
-      retorno += retorno.length > 0 ? ", " + array[i].tipoAtendimento.dsTipoatendimento : 
-        "" + array[i].tipoAtendimento.dsTipoatendimento;
+      retorno += (retorno.length > 0 ? ", " : "") + array[i].tipoAtendimento.dsTipoatendimento;
     }
     return retorno;
+  }
+
+  altAtendimento(element){
+    this.atendimento = element;
+    if (this.atendimento.stAtendimento == "ABERTO") {
+        this.atendimento.stAtendimento = "EM_ATENDIMENTO"
+        this.data.updateAtendimento(this.atendimento).subscribe(response =>{
+          if(response){
+            this.openSnackBar("Atendimento sendo realizado", "OK", 2000)
+          }
+        }, error => {
+          this.openSnackBar(error, "FECHAR", 7000)
+        });
+    } 
+    else if (this.atendimento.stAtendimento == "EM_ATENDIMENTO"){
+      this.atendimento.stAtendimento = "FECHADO"
+        this.data.updateAtendimento(this.atendimento).subscribe(response =>{
+          if(response){
+            this.openSnackBar("Atendimento encerrado", "OK", 2000)
+          }
+        }, error => {
+          this.openSnackBar(error, "FECHAR", 7000)
+        });
+    }
+  }
+  openSnackBar(message: string, action: string, duration: number) {
+    this.snackBar.open(message, action, {
+      duration: duration,
+    });
   }
 }

@@ -34,7 +34,7 @@ export class TipoAtendimentoaddComponent implements OnInit {
 
   onSubmit() {
     if (this.tipoatendimento.cdTipoatendimento > 0) {
-      this.dataService.updateAtendimento(this.tipoatendimento).subscribe( result => {
+      this.dataService.updateTipoAtendimento(this.tipoatendimento).subscribe( result => {
         this.dialogRef.close();
         this.openSnackBar("Salvo com sucesso!", "Fechar", 2000);
       }, error => {

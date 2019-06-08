@@ -25,7 +25,7 @@ export class DataService {
 
     return this.http.post(URL + "tipoAtendimentos", tipoatendimento);
   }
-  updateAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
+  updateTipoAtendimento(tipoatendimento: TipoAtendimento): Observable<Object> {
     return this.http.put(URL + "tipoAtendimentos/" + tipoatendimento.cdTipoatendimento, tipoatendimento);
   }
 
@@ -60,5 +60,9 @@ export class DataService {
 
   getAtendimentos() {
     return this.http.get<Response>(URL + "atendimentos");
+  }
+
+  updateAtendimento(atendimento: Atendimento): Observable<Object> {
+    return this.http.put(URL + "atendimentos/" + atendimento.cdAtendimento, atendimento);
   }
 }
