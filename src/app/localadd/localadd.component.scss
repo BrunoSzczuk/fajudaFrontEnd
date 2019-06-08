@@ -18,6 +18,10 @@ label {
     }
 }
 
+.sizeComponents{
+    width: 100%;
+}
+
 .cta {
     background: #7700FF;
     border: none;
@@ -42,18 +46,21 @@ label {
     }
 }
 
-.button1 {
+.btnSalvar {
     background-color: #4CAF50;
     color: white;
-    width: 75px;
-    border-radius: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+
 }
 
-.button2 {
-    background-color: #008CBA;
+.btnCancelar {
+    background-color: rgb(245, 4, 4);
     color: white;
-    width: 75px;
-    border-radius: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px; 
 }
 
 .button3 {
