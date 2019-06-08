@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { LocaladdComponent } from '../localadd/localadd.component';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
@@ -24,6 +24,8 @@ export class LocalComponent implements OnInit {
   error: string;
   displayedColumns: String[] = ['cdLocal', 'dsLocal', 'obsLocal', 'action'];
   selection = new SelectionModel<Local>(true, []);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
@@ -31,6 +33,19 @@ export class LocalComponent implements OnInit {
     private snackBar: MatSnackBar) {
 
   }
+
+  ngOnInit() {
+    this.data.getLocais().subscribe(response => {
+      this.locais = response.content
+      this.dataSource = new MatTableDataSource(this.locais);
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -52,14 +67,7 @@ export class LocalComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdLocal + 1}`;
   }
-  ngOnInit() {
-    this.data.getLocais().subscribe(response => {
-      this.locais = response.content
-      this.dataSource = new MatTableDataSource(this.locais);
-    })
-
-  }
-
+  
   private openDialog(local: Local): void {
     console.log(local)
     const dialogRef = this.dialog.open(LocaladdComponent, {
