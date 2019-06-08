@@ -1,6 +1,6 @@
 import { TipoAtendimento } from "./tipoatendimento";
 import { Local } from "./local";
-import { Usuario } from "src/app/login/usuario";
+import { Usuario } from "./usuario";
 import { ItemAtendimento } from "./itemAtendimento";
 
 export class Atendimento{

@@ -22,6 +22,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { CdkTableModule } from '@angular/cdk/table';
 import { HomeAtendimentoComponent } from './homeatendimento/homeatendimento.component';
 import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component';
+import { MatDatepickerModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,7 @@ import { ConfirmdialogComponent } from './confirmdialog/confirmdialog.component'
     MatAutocompleteModule,
     MatInputModule,
     MatSnackBarModule,
+    MatDatepickerModule,
   ],
   providers: [AuthService, AuthGuard,  { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent],
