@@ -4,6 +4,7 @@ import { Observable, Observer, of, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { URL } from '../data.service';
+import * as jwt_decode from 'jwt-decode';
 
 export interface LoginContext {
   username: string;
@@ -31,11 +32,34 @@ export class AuthService {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
+      if (this.isTokenExpired(this._credentials.token)) {
+        this.router.navigate(["/login"]);
+        return;
+      }
       this.usuarioAuth = true;
       this.showMenuEmitter.next(true);
-      this.router.navigate(["/"])
+    } else {
+      this.router.navigate(["/login"]);
     }
+  }
 
+  getTokenExpirationDate(token: string): Date {
+    const decoded = jwt_decode(token);
+
+    if (decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  isTokenExpired(token?: string): boolean {
+    if (!token) token = this.getToken();
+    if (!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined) return false;
+    return !(date.valueOf() > new Date().valueOf());
   }
 
   doLogin(context: LoginContext): Observable<Credentials> {
@@ -79,7 +103,7 @@ export class AuthService {
     return this.usuarioAuth;
   }
 
-  getToken(){
+  getToken() {
     return this._credentials.token;
   }
 
