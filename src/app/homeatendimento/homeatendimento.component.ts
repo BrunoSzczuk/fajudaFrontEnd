@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { Atendimento } from 'src/models/atendimento';
+import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
 import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
 import { Observable, of } from 'rxjs';
+import { Atendimento } from '../../models/atendimento';
 
 @Component({
   selector: 'app-homeatendimento',
@@ -21,6 +21,9 @@ export class HomeAtendimentoComponent implements OnInit {
   dataSource;
   displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local', 'itemAtendimentos', 'stAtendimento', 'action'];
   selection = new SelectionModel<Atendimento>(true, []);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
@@ -33,6 +36,10 @@ export class HomeAtendimentoComponent implements OnInit {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -53,6 +60,8 @@ export class HomeAtendimentoComponent implements OnInit {
     this.data.getAtendimentos().subscribe(response => {
       this.atendimentos = response.content
       this.dataSource = new MatTableDataSource(this.atendimentos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
 
   }

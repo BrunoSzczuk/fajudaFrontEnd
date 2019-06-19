@@ -1,60 +1,62 @@
+<h1>Painel de Atendimentos</h1>
 
+<div>
+  <mat-form-field class="inputFilter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+  </mat-form-field>
+</div>
 
-   <h1>Painel de Atendimentos</h1>
-   
-   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-   
-     <!-- Código  -->
-     <ng-container matColumnDef="cdAtendimento">
-       <th mat-header-cell *matHeaderCellDef> Código </th>
-       <td mat-cell *matCellDef="let element"> {{element.cdAtendimento}} </td>
-     </ng-container>
-   
-     <!-- Data Abertura -->
-     <ng-container matColumnDef="dtAtendimento">
-       <th mat-header-cell *matHeaderCellDef> Data Abertura </th>
-       <td mat-cell *matCellDef="let element"> {{element.dtAtendimento}} </td>
-     </ng-container>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-     <!-- Data Fechamento -->
-     <ng-container matColumnDef="dtSolucao">
-      <th mat-header-cell *matHeaderCellDef> Data Fechamento </th>
-      <td mat-cell *matCellDef="let element"> {{element.dtSolucao}} </td>
-    </ng-container>
+  <!-- Código  -->
+  <ng-container matColumnDef="cdAtendimento">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+    <td mat-cell *matCellDef="let element"> {{element.cdAtendimento}} </td>
+  </ng-container>
 
-    <!-- Local -->
-    <ng-container matColumnDef="local">
-      <th mat-header-cell *matHeaderCellDef> Local </th>
-      <td mat-cell *matCellDef="let element"> {{element.local.dsLocal}} </td>
-    </ng-container>
+  <!-- Data Abertura -->
+  <ng-container matColumnDef="dtAtendimento">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Abertura </th>
+    <td mat-cell *matCellDef="let element"> {{element.dtAtendimento}} </td>
+  </ng-container>
 
-    <!-- Tipo Atendimento--> 
-    <ng-container matColumnDef="itemAtendimentos">
-      <th mat-header-cell *matHeaderCellDef> Tipo Atendimento </th>
-      <td mat-cell *matCellDef="let element"> {{getDsAtendimentos(element.itematendimentos)}} </td>
-    </ng-container> 
+  <!-- Data Fechamento -->
+  <ng-container matColumnDef="dtSolucao">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Fechamento </th>
+    <td mat-cell *matCellDef="let element"> {{element.dtSolucao}} </td>
+  </ng-container>
 
-     <!--Situação--> 
-    <ng-container matColumnDef="stAtendimento">
-      <th mat-header-cell *matHeaderCellDef> Situação </th>
-      <td mat-cell *matCellDef="let element"> {{element.stAtendimento}} </td>
-    </ng-container> -->
+  <!-- Local -->
+  <ng-container matColumnDef="local">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+    <td mat-cell *matCellDef="let element"> {{element.local.dsLocal}} </td>
+  </ng-container>
 
-    <!-- Ação -->
-    <ng-container matColumnDef="action">
-       <th mat-header-cell *matHeaderCellDef> Ação </th>
-       <td mat-cell *matCellDef="let element">
-         <button mat-icon-button color="accent"
-           (click)="altAtendimento(element)" [disabled]="isDisable(element)">
-           <mat-icon>{{getIcon(element)}}</mat-icon>
-         </button>
-       </td>
-       
-     </ng-container>
-   
-     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-     </tr>
-   </table>
-   
-   <router-outlet></router-outlet>   
+  <!-- Tipo Atendimento-->
+  <ng-container matColumnDef="itemAtendimentos">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Atendimento </th>
+    <td mat-cell *matCellDef="let element"> {{getDsAtendimentos(element.itematendimentos)}} </td>
+  </ng-container>
+
+  <!--Situação-->
+  <ng-container matColumnDef="stAtendimento">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Situação </th>
+    <td mat-cell *matCellDef="let element"> {{element.stAtendimento}} </td>
+  </ng-container> -->
+
+  <!-- Ação -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ação </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="altAtendimento(element)" [disabled]="isDisable(element)">
+        <mat-icon>{{getIcon(element)}}</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+  </tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<router-outlet></router-outlet>

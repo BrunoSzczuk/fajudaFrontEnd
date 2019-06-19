@@ -1,15 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar, MatPaginator, MatSort } from '@angular/material';
 import { LocaladdComponent } from '../localadd/localadd.component';
 import { Local } from 'src/models/local';
 import { Response } from 'src/models/response';
 import { SelectionModel } from '@angular/cdk/collections';
 import { finalize } from 'rxjs/operators';
 import { ConfirmdialogComponent } from '../confirmdialog/confirmdialog.component';
-
-
 
 @Component({
   selector: 'app-local',
@@ -24,8 +22,10 @@ export class LocalComponent implements OnInit {
   error: string;
   displayedColumns: String[] = ['cdLocal', 'dsLocal', 'obsLocal', 'action'];
   selection = new SelectionModel<Local>(true, []);
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  
   constructor(private data: DataService,
     private router: Router,
     public dialog: MatDialog,
@@ -39,6 +39,7 @@ export class LocalComponent implements OnInit {
       this.locais = response.content
       this.dataSource = new MatTableDataSource(this.locais);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
