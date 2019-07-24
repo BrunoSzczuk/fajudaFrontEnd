@@ -1,6 +1,10 @@
 <h1>Painel de Atendimentos</h1>
 
 <div>
+    <mat-checkbox (click)="atualizaDados()"  [(ngModel)]="ocultarFechados">Ocultar Fechados</mat-checkbox>
+  
+</div>
+<div>
   <mat-form-field class="inputFilter">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
   </mat-form-field>
@@ -17,13 +21,13 @@
   <!-- Data Abertura -->
   <ng-container matColumnDef="dtAtendimento">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Abertura </th>
-    <td mat-cell *matCellDef="let element"> {{element.dtAtendimento}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.dtAtendimento | date: 'dd/MM/yyyy'}} </td>
   </ng-container>
 
   <!-- Data Fechamento -->
   <ng-container matColumnDef="dtSolucao">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Fechamento </th>
-    <td mat-cell *matCellDef="let element"> {{element.dtSolucao}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.dtSolucao | date: 'dd/MM/yyyy'}} </td>
   </ng-container>
 
   <!-- Local -->

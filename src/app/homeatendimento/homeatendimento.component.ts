@@ -18,24 +18,43 @@ export class HomeAtendimentoComponent implements OnInit {
 
   private atendimentos: Atendimento[];
   private atendimento: Atendimento = new Atendimento();
+  private ocultarFechados: boolean = true;
   dataSource;
   displayedColumns: String[] = ['cdAtendimento', 'dtAtendimento', 'dtSolucao', 'local', 'itemAtendimentos', 'stAtendimento', 'action'];
   selection = new SelectionModel<Atendimento>(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   constructor(private data: DataService,
     private router: Router,
+    
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar) {
 
+    setInterval(() => {
+      this.atualizaDados();
+    }, 15000);
+    
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
+  }
+
+  atualizaDados() {
+    this.data.getAtendimentos().subscribe(response => {
+      this.atendimentos = response.content
+      this.atendimentos.forEach(obj => {
+        obj.stAtendimento = this.capitalizeFirstLetter(obj.stAtendimento.replace('_', ' '));
+      })
+      this.atendimentos = this.atendimentos.filter((obj) =>  this.ocultarFechados? obj.stAtendimento !="FECHADO" : true);
+      this.dataSource = new MatTableDataSource(this.atendimentos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
   }
 
   applyFilter(filterValue: string) {
@@ -57,13 +76,7 @@ export class HomeAtendimentoComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.cdAtendimento + 1}`;
   }
   ngOnInit() {
-    this.data.getAtendimentos().subscribe(response => {
-      this.atendimentos = response.content
-      this.dataSource = new MatTableDataSource(this.atendimentos);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
-
+    this.atualizaDados();
   }
 
   getDsAtendimentos(element) {
@@ -75,7 +88,9 @@ export class HomeAtendimentoComponent implements OnInit {
     }
     return retorno;
   }
-
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   async altAtendimento(element) {
     this.atendimento = element;
     console.log(element)
@@ -98,18 +113,18 @@ export class HomeAtendimentoComponent implements OnInit {
     });
   }
 
-  getIcon(element){
-    if(element.stAtendimento == 'ABERTO'){
+  getIcon(element) {
+    if (element.stAtendimento == 'ABERTO') {
       return 'play_circle_filled'
-    } else if (element.stAtendimento == 'EM_ATENDIMENTO'){
+    } else if (element.stAtendimento == 'EM_ATENDIMENTO') {
       return 'done'
-    } else{
+    } else {
       return 'done_all'
     }
   }
 
-  isDisable(element){
-    if(element.stAtendimento == 'FECHADO'){
+  isDisable(element) {
+    if (element.stAtendimento == 'FECHADO') {
       return true;
     }
     return false;
@@ -128,12 +143,12 @@ export class HomeAtendimentoComponent implements OnInit {
     });
   }
 
-  fecharAtendimento(element){
+  fecharAtendimento(element) {
     this.atendimento.stAtendimento = "FECHADO"
-      this.data.updateAtendimento(this.atendimento).subscribe(response => {
-        this.openSnackBar("Atendimento encerrado", "OK", 2000)
-      }, error => {
-        this.openSnackBar(error.error.message, "FECHAR", 7000)
-      });
+    this.data.updateAtendimento(this.atendimento).subscribe(response => {
+      this.openSnackBar("Atendimento encerrado", "OK", 2000)
+    }, error => {
+      this.openSnackBar(error.error.message, "FECHAR", 7000)
+    });
   }
 }
